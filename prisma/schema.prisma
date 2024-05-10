@@ -15,10 +15,18 @@ datasource db {
 
 model User {
   id       String   @id @default(cuid())
-  email    String   
-  name     String?
+  email    String   @unique
   password String
-  posts    Post[]
+  savedProperties    Favorites[]
+}
+
+model Seller {
+  id       String   @id @default(cuid())
+  name    String
+  email    String  @unique
+  phoneNumber String
+  password String
+  properties Properties[]
 }
 
 model Post {
@@ -26,22 +34,42 @@ model Post {
   title     String
   content   String
   published Boolean
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  String
+  onSale    Boolean
+  property Properties @relation(fields: [propertyId], references: [id])
+  propertyId String
+  saved Favorites[]
+  valorations Valorations[]
 }
 
-model Propiedad {
+model Favorites {
+  id        String   @id @default(cuid())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model Properties {
   id          String   @id @default(cuid())
-  nombre      String
-  descripcion String
-  precio      Float
-  ubicacion   String
-  imagen      String
-  tipo        String
-  habitaciones Int
-  banos       Int
-  estacionamiento Int
+  name      String
+  description String
+  price      Float
+  ubication   String
+  image      String
+  type        String
+  rooms Int
+  bathrooms       Int
+  garage Int
   area        Float
-  // user        User     @relation(fields: [userId], references: [id])
-  userId      String
+  post        Post[]
+  seller    Seller    @relation(fields: [sellerId], references: [id])
+  sellerId  String
+}
+
+model Valorations {
+  id        String   @id @default(cuid())
+  comment String
+  quailification Int
+  postRelated Post  @relation(fields: [postId], references: [id])
+  postId String 
 }

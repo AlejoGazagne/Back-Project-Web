@@ -1,16 +1,23 @@
-import express, { json } from 'express'
-import cors from 'cors'
-import router from './router/router.js'
-const app = express()
-app.use(json())
-app.use(cors())
-app.disable('x-powered-by')
-const desiredPort = process.env.PORT ?? 1234
+const express = require('express');
+const cors = require('cors');
 
-app.get('/', (req, res) => {
-    res.send('Hello word')
-})
+const app = express();
+const port = 3010;
 
-app.listen(desiredPort, () => {
-    console.log(`App listening on port http://localhost:${desiredPort}`)
-})
+app.use(cors()); 
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+
+const Prueba = require('./router/home');
+const Seller = require('./router/seller/routerSeller');
+
+app.use(Prueba)
+app.use(Seller)
+
+app.use((req, res) => {
+    res.status(404).send('Not found');
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port http://localhost:${port}`);
+});
