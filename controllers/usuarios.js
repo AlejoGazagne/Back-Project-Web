@@ -1,6 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
 
-
     async function getUserByEmail(email) {
         const prisma = new PrismaClient();
         const user = await prisma.user.findUnique({
@@ -22,4 +21,17 @@ const { PrismaClient } = require('@prisma/client');
         return user;
     }
 
-    module.exports = {createUser, getUserByEmail};
+    async function updateUser(email, password){
+        const prisma = new PrismaClient();
+        const user = await prisma.user.update({
+            where: {
+                email: email
+            },
+            data: {
+                password: password
+            }
+        });
+        return user;
+    }
+
+    module.exports = {createUser, getUserByEmail, updateUser};

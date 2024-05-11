@@ -23,4 +23,19 @@ async function createSeller(email, password, name, phoneNumber){
     return seller;
 }
 
-module.exports = { getSellerByEmail, createSeller };
+async function updateSeller(email, password, name, phoneNumber){
+    const prisma = new PrismaClient();
+    const seller = await prisma.seller.update({
+        where: {
+            email: email
+        },
+        data: {
+            password: password,
+            name: name,
+            phoneNumber: phoneNumber
+        }
+    });
+    return seller;
+}
+
+module.exports = { getSellerByEmail, createSeller, updateSeller };
