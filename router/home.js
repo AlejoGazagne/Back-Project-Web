@@ -1,6 +1,6 @@
 var express = require('express')
 var router = express.Router()
-const { createUser, getUserByEmail } = require('../controllers/usuarios')
+const { createUser, getUserByEmail } = require('../services/usuarios.service')
 const { getSellerByEmail } = require('../controllers/sellers')
 const { } = require('../controllers/properties')
 const { generateToken } = require('../services/generateToken')
