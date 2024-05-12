@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 
 async function getPropertiesByUbicacion(ubication) {
     const prisma = new PrismaClient();
-    const properties = await prisma.property.findMany({
+    const properties = await prisma.properties.findMany({
         where: {
             ubication: ubication
         }
@@ -12,7 +12,7 @@ async function getPropertiesByUbicacion(ubication) {
 
 async function getPropertiesByType(type) {
     const prisma = new PrismaClient();
-    const properties = await prisma.property.findMany({
+    const properties = await prisma.properties.findMany({
         where: {
             type: type
         }
@@ -22,7 +22,7 @@ async function getPropertiesByType(type) {
 
 async function getPropertiesByRooms(rooms) {
     const prisma = new PrismaClient();
-    const properties = await prisma.property.findMany({
+    const properties = await prisma.properties.findMany({
         where: {
             rooms: rooms,
             // OR: [
@@ -37,7 +37,7 @@ async function getPropertiesByRooms(rooms) {
 
 async function getPropertiesByBathrooms(bathrooms) {
     const prisma = new PrismaClient();
-    const properties = await prisma.property.findMany({
+    const properties = await prisma.properties.findMany({
         where: {
             bathrooms: bathrooms
         }
@@ -45,24 +45,24 @@ async function getPropertiesByBathrooms(bathrooms) {
     return properties;
 }
 
-async function getPropertiesByPrice(price) {
-    const prisma = new PrismaClient();
-    const properties = await prisma.property.findMany({
-        where: {
-            price: price
-            // OR: [
-                //     { price: price }, 
-                //     { price: price*1.3 }, 
-                //     { price: price*0.7 }, 
-                //   ], range of prices
-        }
-    });
-    return properties;
-}
+// async function getPropertiesByPrice(price) {
+//     const prisma = new PrismaClient();
+//     const properties = await prisma.properties.findMany({
+//         where: {
+//             // price: price
+//             OR: [
+//                     { price: price }, 
+//                     { price: price*1.3 }, 
+//                     { price: price*0.7 }, 
+//                   ], // range of prices
+//         }
+//     });
+//     return properties;
+// }
 
 async function getPropertiesByArea(area) {
     const prisma = new PrismaClient();
-    const properties = await prisma.property.findMany({
+    const properties = await prisma.properties.findMany({
         where: {
             area: area
             // OR: [
@@ -77,7 +77,7 @@ async function getPropertiesByArea(area) {
 
 async function getPropertiesByGarage(garage) {
     const prisma = new PrismaClient();
-    const properties = await prisma.property.findMany({
+    const properties = await prisma.properties.findMany({
         where: {
             garage: garage
         }
@@ -88,7 +88,7 @@ async function getPropertiesByGarage(garage) {
 // Metodos para crear Propiedades
 async function createProperty(name, description, price, ubication, image, type, rooms, bathrooms, garage, area, seller, selerId) {
     const prisma = new PrismaClient();
-    const property = await prisma.property.create({
+    const property = await prisma.properties.create({
         data: {
             name: name,
             description: description,
@@ -108,18 +108,38 @@ async function createProperty(name, description, price, ubication, image, type, 
 }
 
 // Metodos para actualizar Propiedades
-async function updateProperty() {
+// async function updateProperty(propertyParam) {
+//     const prisma = new PrismaClient();
 
-}
+//     const property = await prisma.properties.update{
+//         where: {
+//             id: propertyParam.id
+//         },
+//         update: {
+//             name: propertyParam.name,
+//             description: propertyParam.description,
+//             price: propertyParam.price,
+//             ubication: propertyParam.ubication,
+//             image: propertyParam.image,
+//             type: propertyParam.type,
+//             rooms: propertyParam.rooms,
+//             bathrooms: propertyParam.bathrooms,
+//             garage: propertyParam.garage,
+//             area: propertyParam.area,
+//             seller: propertyParam.seller,
+//             sellerId: propertyParam.sellerId,
+//         },
+//     };
+    
+// }
 
 module.exports = { 
     getPropertiesByUbicacion, 
     getPropertiesByType, 
     getPropertiesByRooms, 
     getPropertiesByBathrooms, 
-    getPropertiesByPrice, 
     getPropertiesByArea, 
     getPropertiesByGarage, 
     createProperty, 
-    updateProperty
+    // updateProperty
 };

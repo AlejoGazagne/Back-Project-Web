@@ -34,6 +34,7 @@ model Post {
   title     String
   content   String
   published Boolean
+  price     Float
   onSale    Boolean
   property Properties @relation(fields: [propertyId], references: [id])
   propertyId String
@@ -51,9 +52,6 @@ model Favorites {
 
 model Properties {
   id          String   @id @default(cuid())
-  name      String
-  description String
-  price      Float
   ubication   String
   image      String
   type        String

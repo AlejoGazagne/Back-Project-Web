@@ -9,6 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const Prueba = require('./router/home');
+//const user = require('./router/user');
 const Seller = require('./router/seller/routerSeller');
 
 app.use(Prueba)
