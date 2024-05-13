@@ -1,0 +1,3 @@
+En esta carpeta tendriamos que usar zod para verificar que los datos que se le estan pasando son validos
+hacer un 
+user.schema.js y asi para todo lo que nos van a pasar
