@@ -83,10 +83,14 @@ class Properties {
     const prisma = new PrismaClient();
     const properties = await prisma.properties.findMany({
       where: {
-        garage: garage
+        garage: garage,
       }
     });
     return properties;
+  }
+
+  async buscar(body){
+
   }
 
   async createProperty(body) {
