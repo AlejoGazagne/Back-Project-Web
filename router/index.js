@@ -16,7 +16,11 @@ router.use("/", auth);
 // router.get('/', (req, res) => {
 //   res.send('Home route')
 
+
 //   // bring three random properties
+
+//   // bring three random properties   
+
 
 // });
 
@@ -39,5 +43,4 @@ router.use("/", auth);
 //     console.log(token)
 //   }
 // });
-
 module.exports = router;
