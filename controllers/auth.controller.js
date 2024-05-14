@@ -19,7 +19,7 @@ const autentificarUsuario = async (res, req) => {
         } else if (user.password !== password) {
             return res.status(401).json({ message: 'Usuario no encontrado' })
         }
-        
+
         return res.status(200).json({ message: 'Usuario autentificado' })
     } catch (error) {
         console.log(error)
@@ -28,4 +28,4 @@ const autentificarUsuario = async (res, req) => {
 }
 
 
-module.exports = { autentificarUsuario }
+module.exports = { autentificarUsuario };
