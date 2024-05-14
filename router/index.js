@@ -1,13 +1,13 @@
-const express = require('express')
-const router = express.Router()
+const express = require("express");
+const router = express.Router();
 
-const userRouter = require('./user.router')
-const sellerRouter = require('./seller.router')
-const auth = require('./auth.router')
+const userRouter = require("./user.router");
+const sellerRouter = require("./seller.router");
+const auth = require("./auth.router");
 
-router.use('/user', userRouter)
-router.use('/seller', sellerRouter)
-router.use('/', auth)   
+router.use("/user", userRouter);
+router.use("/seller", sellerRouter);
+router.use("/", auth);
 
 // const { getSellerByEmail } = require('../services/sellers.services')
 // const { } = require('../services/properties.services')
@@ -16,7 +16,11 @@ router.use('/', auth)
 // router.get('/', (req, res) => {
 //   res.send('Home route')
 
+
+//   // bring three random properties
+
 //   // bring three random properties   
+
 
 // });
 
@@ -39,5 +43,4 @@ router.use('/', auth)
 //     console.log(token)
 //   }
 // });
-
 module.exports = router;
