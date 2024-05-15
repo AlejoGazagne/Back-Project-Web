@@ -8,23 +8,4 @@ router
     .put('/updateSeller', sellerController.update)
     .delete('/deleteSeller/:email', sellerController.delet)
 
-
 module.exports = router;
-
-// const { createSeller, getSellerByEmail } = require('../services/sellers.services')
-
-// router.post('/seller/register', async (req, res) => {
-//     const { email, password, name, phoneNumber } = req.body
-
-//     console.log(email, password, name, phoneNumber)
-
-//     const seller = await getSellerByEmail(email)
-//     console.log(seller)
-
-//     if (seller == null) {
-//         const newSeller = await createSeller(email, password, name, phoneNumber)
-//         res.send(newSeller)
-//     }
-
-
-// })
