@@ -1,4 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
+const { hashPassword, verifyPassword } = require('./hashPassword.services');
+
 
 class UserServices {
 
@@ -15,20 +17,27 @@ class UserServices {
   }
 
   async createUser(body) {
-    const { password, email } = body;
+    try {
+      var { password, email } = body;
+      password = await hashPassword(password);
 
-    const prisma = new PrismaClient();
-    const user = await prisma.user.create({
-      data: {
-        email: email,
-        password: password
-      }
-    });
-    return user;
+      const prisma = new PrismaClient();
+      const user = await prisma.user.create({
+        data: {
+          email: email,
+          password: password
+        }
+      });
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+
   }
 
   async updateUser(body) {
     const { email, password } = body;
+    password = await hashPassword(password);
 
     const prisma = new PrismaClient();
     const user = await prisma.user.update({
