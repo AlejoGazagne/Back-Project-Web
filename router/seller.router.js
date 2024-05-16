@@ -7,5 +7,6 @@ router
     .post('/createSeller', sellerController.create)
     .put('/updateSeller', sellerController.update)
     .delete('/deleteSeller/:email', sellerController.delet)
+    .get('/getMyPosts', sellerController.getPosts)
 
 module.exports = router;
