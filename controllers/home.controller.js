@@ -1,8 +1,10 @@
-const propertiesServices = require('../services/properties.services');
+const PostServices = require('../services/post.services');
+const postServices = new PostServices;
 
 const getThreeProperties = async (req, res) => {
     try {
-        const properties = await propertiesServices.getProperties(req.body);
+        const properties = await propertiesServices.getThreeProperty();
+        console.log(properties);
         return res.status(200).json(properties);
     } catch (error) {
         console.log(error);
@@ -10,4 +12,4 @@ const getThreeProperties = async (req, res) => {
     }
 }
 
-module.exports = { getProperties }
+module.exports = { getThreeProperties }

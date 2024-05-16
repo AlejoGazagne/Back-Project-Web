@@ -3,23 +3,37 @@ const { PrismaClient } = require('@prisma/client');
 class Properties {
   constructor() { }
 
-  async getProperty() {
+  // async getThreeProperty(body) {
+  //   const prisma = new PrismaClient();
+  //   const properties = await prisma.properties.findMany({
+  //     where: {
+  //       OR: [
+  //         { id: 1 },
+  //         { id: 2 },
+  //         { id: 3 }
+  //       ]
+  //     }
+  //   });
+  //   return properties;
+  // }
+
+  async getPropertiesBySellerId(id) {
     const prisma = new PrismaClient();
     const properties = await prisma.properties.findMany({
       where: {
-        ORR: [
-          { id: id < 3 }
-        ]
+        sellerId: id
       }
     });
     return properties;
   }
 
-  async getProperties(body) {
-    const { name, price, ubication, image, type, rooms, bathrooms, garage, area } = body;
+  async getPropertiesFilter(body) {
+    const { id, name, price, ubication, image, type, rooms, bathrooms, garage, area } = body;
+
     const prisma = new PrismaClient();
     const properties = await prisma.properties.findMany({
       where: {
+        id: { contains: id },
         name: { contains: name },
         price: { contains: price },
         ubication: { contains: ubication },

@@ -2,7 +2,30 @@ const jwt = require('jsonwebtoken')
 
 const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
-const verifyToken = (req, res, next) => {
+const verifyTokenUser = (req, res, next) => {
+  const token = req.headers.authorization;
+  console.log(token);
+  if (!token) {
+    return res.status(401).json({ message: "No autorizado" });
+  }
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const role = decoded.role;
+
+    if (role !== 'user') {
+      return res.status(403).json({ message: "No autorizado para la accion" })
+    }
+
+    req.token = decoded;
+    console.log(req.token);
+    next();
+  } catch (error) {
+    return res.status(403).json({ message: "No autorizado para la accion" });
+  }
+
+};
+
+const verifyTokenSeller = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
     return res.status(401).json({ message: "No autorizado" });
@@ -11,21 +34,16 @@ const verifyToken = (req, res, next) => {
     const decoded = jwt.verify(token, JWT_SECRET);
     const role = decoded.role;
 
-    const url = req.url
-    console.log("probando: ", url)
-
-    if (url.includes(role)) {
-      console.log("autorizado")
-      req.user = decoded;
-      next();
-    } else {
+    if (role !== 'seller') {
       return res.status(403).json({ message: "No autorizado para la accion" })
     }
 
+    req.token = decoded;
+    //console.log(req.token);
+    next();
   } catch (error) {
     return res.status(403).json({ message: "No autorizado para la accion" });
   }
+}
 
-};
-
-module.exports = { verifyToken };
+module.exports = { verifyTokenUser, verifyTokenSeller };
