@@ -3,46 +3,39 @@ const { PrismaClient } = require('@prisma/client');
 class Post {
   constructor() { }
 
-  async getPostByPropertyId(id) {
-    const prisma = new PrismaClient();
-    const post = await prisma.post.findMany({
-      where: {
-        propertyId: id
-      }
-    });
-    return post;
-  }
-
   async getMyPosts(id) {
     const prisma = new PrismaClient();
     const posts = await prisma.post.findMany({
       where: {
-        propertyId: id
+        sellerId: id
       }
     });
     return posts;
   }
 
   async getPosts(body) {
+    const { name, price, ubication, type, rooms, bathrooms, garage, area, onSale } = body;
+
     const prisma = new PrismaClient();
     const posts = await prisma.post.findMany({
       where: {
         published: true,
-        title: { contains: body.title },
-        price: {
-          ORR: [
-            { price: price * 1.3 },
-            { price: price * 0.7 }
-          ]
-        },
-        onSale: { contains: body.onSale },
+        name: { contains: name },
+        price: price,
+        ubication: { contains: ubication },
+        type: type,
+        rooms: rooms,
+        bathrooms: bathrooms,
+        garage: garage,
+        area: area,
+        onSale: onSale
       }
     });
     return posts;
   }
 
   async createPost(body) {
-    const { title, content, published, price, onSale, property, propertyId } = body;
+    const { title, content, published, price, onSale, ubication, frontImage, images, type, rooms, bathrooms, garage, area, seller, sellerId } = body;
 
     const prisma = new PrismaClient();
     const post = await prisma.post.create({
@@ -52,15 +45,23 @@ class Post {
         published: published,
         price: price,
         onSale: onSale,
-        property: property,
-        propertyId: propertyId
+        ubication: ubication,
+        frontImage: frontImage,
+        images: images,
+        type: type,
+        rooms: rooms,
+        bathrooms: bathrooms,
+        garage: garage,
+        area: area,
+        seller: seller,
+        sellerId: sellerId
       }
     })
     return post;
   }
 
   async updatePost(body) {
-    const { id, title, content, published, price, onSale, property, propertyId } = body;
+    const { id, title, content, published, price, onSale, ubication, frontImage, images, type, rooms, bathrooms, garage, area } = body;
 
     const prisma = new PrismaClient();
     const post = await prisma.post.update({
@@ -73,10 +74,16 @@ class Post {
         published: published,
         price: price,
         onSale: onSale,
-        property: property,
-        propertyId: propertyId
+        ubication: ubication,
+        frontImage: frontImage,
+        images: images,
+        type: type,
+        rooms: rooms,
+        bathrooms: bathrooms,
+        garage: garage,
+        area: area,
       }
-    });
+    })
     return post;
   }
 

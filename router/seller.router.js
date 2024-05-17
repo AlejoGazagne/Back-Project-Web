@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const postRouter = require('./post.router')
+
 const sellerController = require('../controllers/seller.controller')
 
 router
@@ -7,6 +9,7 @@ router
     .post('/createSeller', sellerController.create)
     .put('/updateSeller', sellerController.update)
     .delete('/deleteSeller/:email', sellerController.delet)
-    .get('/getMyPosts', sellerController.getPosts)
+
+router.use('/post', postRouter)
 
 module.exports = router;
