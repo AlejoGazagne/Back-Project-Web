@@ -43,7 +43,7 @@ const delet = async (req, res) => {
 const getMyPosts = async (req, res) => {
   try {
     const response = await postService.getMyPosts(req.token.id);
-    res.json({ message: 'Get my posts', data: response, id: req.token.id })
+    res.json({ message: 'Get my posts', data: response })
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

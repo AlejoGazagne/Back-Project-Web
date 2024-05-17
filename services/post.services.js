@@ -3,6 +3,17 @@ const { PrismaClient } = require('@prisma/client');
 class Post {
   constructor() { }
 
+  async getThreePost() {
+    const prisma = new PrismaClient();
+    const posts = await prisma.post.findMany({
+      take: 3,
+      where: {
+        published: true
+      },
+    });
+    return posts;
+  }
+
   async getMyPosts(id) {
     const prisma = new PrismaClient();
     const posts = await prisma.post.findMany({

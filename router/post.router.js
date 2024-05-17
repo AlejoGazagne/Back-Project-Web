@@ -3,7 +3,8 @@ const router = express.Router()
 const postController = require('../controllers/post.controller')
 
 router
-    .get('/getPosts', postController.getMyPosts)
     .post('/createPost', postController.create)
+    .delete('/deletePost/:id', postController.delet)
+    .get('/getMyPosts', postController.getMyPosts)
 
 module.exports = router;
