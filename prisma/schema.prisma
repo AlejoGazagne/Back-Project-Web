@@ -27,19 +27,7 @@ model Seller {
   phoneNumber String
   password    String
   properties  Properties[]
-}
-
-model Post {
-  id          Int           @id @default(autoincrement())
-  title       String
-  content     String
-  published   Boolean
-  price       Float
-  onSale      Boolean
-  property    Properties    @relation(fields: [propertyId], references: [id])
-  propertyId  Int
-  saved       Favorites[]
-  valorations Valorations[]
+  Post        Post[]
 }
 
 model Favorites {
@@ -48,6 +36,31 @@ model Favorites {
   postId Int
   user   User @relation(fields: [userId], references: [id])
   userId Int
+}
+
+model Post {
+  id           Int           @id @default(autoincrement())
+  title        String
+  content      String
+  published    Boolean
+  price        Float
+  onSale       Boolean
+  ubication    Float[]
+  frontImage   String
+  images       String[]
+  type         String
+  rooms        Int
+  bathrooms    Int
+  garage       Int
+  area         Float
+  pool         Boolean
+  pets         Boolean
+  seller       Seller        @relation(fields: [sellerId], references: [id])
+  sellerId     Int
+  saved        Favorites[]
+  valorations  Valorations[]
+  Properties   Properties?   @relation(fields: [propertiesId], references: [id])
+  propertiesId Int?
 }
 
 model Properties {
@@ -71,3 +84,17 @@ model Valorations {
   postRelated    Post   @relation(fields: [postId], references: [id])
   postId         Int
 }
+
+// model Properties {
+//   id        Int    @id @default(autoincrement())
+//   ubication String
+//   image     String
+//   type      String
+//   rooms     Int
+//   bathrooms Int
+//   garage    Int
+//   area      Float
+//   post      Post[]
+//   seller    Seller @relation(fields: [sellerId], references: [id])
+//   sellerId  Int
+// }
