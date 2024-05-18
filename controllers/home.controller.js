@@ -1,5 +1,5 @@
-const PostServices = require("../services/post.services");
-const postServices = new PostServices();
+const PostServices = require('../services/post.services');
+const postServices = new PostServices;
 
 const getThreePosts = async (req, res) => {
   try {
@@ -16,6 +16,6 @@ const getThreePosts = async (req, res) => {
     console.log(error);
     return res.status(500).json({ message: "Error al obtener propiedades" });
   }
-};
+}
 
-module.exports = { getThreePosts };
+module.exports = { getThreePosts }
