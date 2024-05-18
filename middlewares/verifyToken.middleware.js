@@ -4,7 +4,6 @@ const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 const verifyTokenUser = (req, res, next) => {
   const token = req.headers.authorization;
-  console.log(token);
   if (!token) {
     return res.status(401).json({ message: "No autorizado" });
   }
@@ -17,7 +16,6 @@ const verifyTokenUser = (req, res, next) => {
     }
 
     req.token = decoded;
-    console.log(req.token);
     next();
   } catch (error) {
     return res.status(403).json({ message: "No autorizado para la accion" });
@@ -27,6 +25,7 @@ const verifyTokenUser = (req, res, next) => {
 
 const verifyTokenSeller = (req, res, next) => {
   const token = req.headers.authorization;
+
   if (!token) {
     return res.status(401).json({ message: "No autorizado" });
   }
@@ -39,7 +38,6 @@ const verifyTokenSeller = (req, res, next) => {
     }
 
     req.token = decoded;
-    //console.log(req.token);
     next();
   } catch (error) {
     return res.status(403).json({ message: "No autorizado para la accion" });

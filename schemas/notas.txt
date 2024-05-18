@@ -1,3 +1,30 @@
 En esta carpeta tendriamos que usar zod para verificar que los datos que se le estan pasando son validos
 hacer un 
 user.schema.js y asi para todo lo que nos van a pasar
+
+
+POSTS
+{
+  "title": "Departamento fachero",
+  "content": "Departamento fachera en lugar fachero para hacer facha",
+  "published": true,
+  "price": 350000,
+  "onSale": false,
+  "ubication": "Cordoba",
+  "frontImage": "asdasdasd",
+  "image": ["321321321", "654654654"],
+  "type": "Departamento",
+  "rooms": 2,
+  "bathrooms": 1,
+  "garage": 1,
+  "area": 110
+}
+
+SELLER 
+{
+  "email": "seller@gmail.com",
+  "password": "seller123",
+  "type": 2,
+  "name": "seller",
+  "phoneNumber": "32132132"
+}

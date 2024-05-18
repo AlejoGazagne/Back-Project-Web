@@ -21,25 +21,12 @@ model User {
 }
 
 model Seller {
-  id          Int          @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   name        String
-  email       String       @unique
+  email       String @unique
   phoneNumber String
   password    String
-  properties  Properties[]
-}
-
-model Post {
-  id          Int           @id @default(autoincrement())
-  title       String
-  content     String
-  published   Boolean
-  price       Float
-  onSale      Boolean
-  property    Properties    @relation(fields: [propertyId], references: [id])
-  propertyId  Int
-  saved       Favorites[]
-  valorations Valorations[]
+  posts       Post[]
 }
 
 model Favorites {
@@ -50,20 +37,6 @@ model Favorites {
   userId Int
 }
 
-model Properties {
-  id        Int    @id @default(autoincrement())
-  ubication String
-  image     String
-  type      String
-  rooms     Int
-  bathrooms Int
-  garage    Int
-  area      Float
-  post      Post[]
-  seller    Seller @relation(fields: [sellerId], references: [id])
-  sellerId  Int
-}
-
 model Valorations {
   id             Int    @id @default(autoincrement())
   comment        String
@@ -71,3 +44,38 @@ model Valorations {
   postRelated    Post   @relation(fields: [postId], references: [id])
   postId         Int
 }
+
+model Post {
+  id          Int           @id @default(autoincrement())
+  title       String
+  content     String
+  published   Boolean
+  price       Float
+  onSale      Boolean
+  ubication   String
+  frontImage  String
+  images      String[]
+  type        String
+  rooms       Int
+  bathrooms   Int
+  garage      Int
+  area        Float
+  seller      Seller        @relation(fields: [sellerId], references: [id])
+  sellerId    Int
+  saved       Favorites[]
+  valorations Valorations[]
+}
+
+// model Properties {
+//   id        Int    @id @default(autoincrement())
+//   ubication String
+//   image     String
+//   type      String
+//   rooms     Int
+//   bathrooms Int
+//   garage    Int
+//   area      Float
+//   post      Post[]
+//   seller    Seller @relation(fields: [sellerId], references: [id])
+//   sellerId  Int
+// }

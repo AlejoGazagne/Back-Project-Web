@@ -2,7 +2,9 @@ const SellerService = require("../services/seller.services");
 const sellerService = new SellerService();
 const UserService = require("../services/user.services");
 const userService = new UserService();
+const { hashPassword } = require("../services/hashPassword.services");
 const { generateToken } = require("../services/generateToken.services");
+const { hash } = require("argon2");
 
 const registerAccount = async (req, res) => {
   try {
@@ -16,6 +18,7 @@ const registerAccount = async (req, res) => {
       if (user) {
         return res.status(400).json({ message: "El usuario ya existe" });
       }
+      req.body.password = await hashPassword(password);
       const newUser = await userService.createUser(req.body);
       const token = generateToken(newUser, "user");
       return res.status(200).json({ message: "Usuario registrado", token: token });
@@ -29,6 +32,8 @@ const registerAccount = async (req, res) => {
       if (seller) {
         return res.status(400).json({ message: "El vendedor ya existe" });
       }
+
+      req.body.password = await hashPassword(password);
       const newSeller = await sellerService.createSeller(req.body);
       const token = generateToken(newSeller, "seller");
       return res.status(200).json({ message: "Vendedor registrado", token: token });

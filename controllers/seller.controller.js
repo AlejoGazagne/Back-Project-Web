@@ -1,8 +1,5 @@
-const jwt = require('jsonwebtoken');
 const SellerService = require('../services/seller.services');
 const service = new SellerService();
-const PropertyService = require('../services/properties.services');
-const propertyService = new PropertyService();
 const PostService = require('../services/post.services');
 const postService = new PostService();
 
