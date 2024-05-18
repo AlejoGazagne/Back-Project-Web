@@ -76,12 +76,21 @@ class Post {
     // });
     // return posts;
 
-
     const { name, price, ubication, type, rooms, bathrooms, garage, area, onSale } = body;
+
     const prisma = new PrismaClient();
     const posts = await prisma.post.findMany({
       where: {
-        title: {
+        title: { contains: name,},
+        price: {
+          gte: price * 0.85,
+          lte: price * 1.15,
+        },
+        ubication: {
+          contains: ubication,
+        },
+        type: {
+          contains: type,
           contains: name
         },
         price: {
@@ -124,10 +133,12 @@ class Post {
         bathrooms: bathrooms,
         garage: garage,
         area: area,
+        pool: pool,
+        pets: pets,
         seller: seller,
-        sellerId: sellerId
-      }
-    })
+        sellerId: sellerId,
+      },
+    });
     return post;
   }
 
@@ -153,11 +164,12 @@ class Post {
         bathrooms: bathrooms,
         garage: garage,
         area: area,
-      }
-    })
+        pool: pool,
+        pets: pets,
+      },
+    });
     return post;
   }
-
 }
 
 module.exports = Post;

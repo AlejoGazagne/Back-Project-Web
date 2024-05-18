@@ -37,33 +37,37 @@ model Favorites {
   userId Int
 }
 
+model Post {
+  id           Int           @id @default(autoincrement())
+  title        String
+  content      String
+  published    Boolean
+  price        Float
+  onSale       Boolean
+  ubication    Float[]
+  frontImage   String
+  images       String[]
+  type         String
+  rooms        Int
+  bathrooms    Int
+  garage       Int
+  area         Float
+  pool         Boolean
+  pets         Boolean
+  seller       Seller        @relation(fields: [sellerId], references: [id])
+  sellerId     Int
+  saved        Favorites[]
+  valorations  Valorations[]
+  Properties   Properties?   @relation(fields: [propertiesId], references: [id])
+  propertiesId Int?
+}
+
 model Valorations {
   id             Int    @id @default(autoincrement())
   comment        String
   quailification Int
   postRelated    Post   @relation(fields: [postId], references: [id])
   postId         Int
-}
-
-model Post {
-  id          Int           @id @default(autoincrement())
-  title       String
-  content     String
-  published   Boolean
-  price       Float
-  onSale      Boolean
-  ubication   String
-  frontImage  String
-  images      String[]
-  type        String
-  rooms       Int
-  bathrooms   Int
-  garage      Int
-  area        Float
-  seller      Seller        @relation(fields: [sellerId], references: [id])
-  sellerId    Int
-  saved       Favorites[]
-  valorations Valorations[]
 }
 
 // model Properties {
