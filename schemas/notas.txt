@@ -10,14 +10,16 @@ POSTS
   "published": true,
   "price": 350000,
   "onSale": false,
-  "ubication": "Cordoba",
+  "ubication": [],
   "frontImage": "asdasdasd",
   "image": ["321321321", "654654654"],
   "type": "Departamento",
   "rooms": 2,
   "bathrooms": 1,
   "garage": 1,
-  "area": 110
+  "area": 110,
+  "pool": false,
+  "pets": true
 }
 
 SELLER 

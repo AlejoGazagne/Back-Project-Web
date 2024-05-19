@@ -3,6 +3,9 @@ const postService = new PostService();
 
 const create = async (req, res) => {
   try {
+    // console.log('creando post')
+    // console.log(req.token)
+    // console.log(req.body)
     //Verificar que esten los valores
     req.body.sellerId = req.token.id;
     const response = await postService.createPost(req.body);

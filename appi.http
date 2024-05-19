@@ -1,1 +1,67 @@
-POST http://localhost:3010/login
+POST http://localhost:3010
+
+###
+POST http://localhost:3010/account/register
+content-type: application/json
+{
+    "email": "gabriel@gmail.com",
+    "password": "gabriel123",
+    "name": "Gabriel",
+    "type": 2,
+    "phoneNumber": "123456789"
+}
+###
+POST http://localhost:3010/account/register
+{
+    "email": "pelado@gmail.com",
+    "password": "pelado123",
+    "name": "pelado",
+    "type": 2,
+    "phoneNumber": "123456789"
+}
+###
+POST http://localhost:3010/account/register
+{
+    "email": "alejo@gmail.com",
+    "password": "alejo123",
+    "name": "alejo",
+    "type": 2,
+    "phoneNumber": "123456789"
+}
+###
+POST http://localhost:3010/account/register
+{
+    "email": "raviol@gmail.com",
+    "password": "raviol123",
+    "name": "Raviol",
+    "type": 2,
+    "phoneNumber": "123456789"
+}
+###
+POST http://localhost:3010/account/register
+{
+    "email": "gacela@gmail.com",
+    "password": "gacela123",
+    "type": 1
+}
+###
+POST http://localhost:3010/account/register
+{
+    "email": "simon@gmail.com",
+    "password": "simon123",
+    "type": 1
+}
+###
+POST http://localhost:3010/account/register
+{
+    "email": "amti@gmail.com",
+    "password": "amti123",
+    "type": 1
+}
+###
+POST http://localhost:3010/account/register
+{
+    "email": "bruno@gmail.com",
+    "password": "bruno123",
+    "type": 1
+}
