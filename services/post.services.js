@@ -76,12 +76,12 @@ class Post {
     // });
     // return posts;
 
-    const { name, price, ubication, type, rooms, bathrooms, garage, area, onSale } = body;
+    const { name, price, ubication, type, rooms, bathrooms, garage, area, onSale, pool, pets } = body;
 
     const prisma = new PrismaClient();
     const posts = await prisma.post.findMany({
       where: {
-        title: { contains: name,},
+        title: { contains: name, },
         price: {
           gte: price * 0.85,
           lte: price * 1.15,
@@ -108,14 +108,16 @@ class Post {
         garage: garage,
         area: area,
         onSale: onSale,
-        published: true
+        published: true,
+        pool: pool,
+        pets: pets
       }
     });
     return posts;
   }
 
   async createPost(body) {
-    const { title, content, published, price, onSale, ubication, frontImage, images, type, rooms, bathrooms, garage, area, seller, sellerId } = body;
+    const { title, content, published, price, onSale, ubication, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, seller, sellerId } = body;
 
     const prisma = new PrismaClient();
     const post = await prisma.post.create({
@@ -143,7 +145,7 @@ class Post {
   }
 
   async updatePost(body) {
-    const { id, title, content, published, price, onSale, ubication, frontImage, images, type, rooms, bathrooms, garage, area } = body;
+    const { id, title, content, published, price, onSale, ubication, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, } = body;
 
     const prisma = new PrismaClient();
     const post = await prisma.post.update({

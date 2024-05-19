@@ -39,27 +39,25 @@ const delet = async (req, res) => {
   }
 }
 
-const getPosts = async (req, res) => {
-  try {
-    // const decoded = jwt.verify(token, JWT_SECRET);
-    // const sellerId = decoded.id;
-    console.log(req.token);
+// const getPosts = async (req, res) => {
+//   try {
+//     console.log(req.token);
 
-    //const seller = await service.getSellerByEmail(req.params.email);
+//     //const seller = await service.getSellerByEmail(req.token.email);
 
-    const properties = await propertyService.getPropertiesBySellerId(sellerId);
-    console.log(properties);
-    var posts = [];
+//     const properties = await propertyService.getPropertiesBySellerId(sellerId);
+//     console.log(properties);
+//     var posts = [];
 
-    for (let i = 0; i < properties.length; i++) {
-      var response = await postService.getPostByPropertyId(properties[i].id);
-      posts.push(response);
-    }
+//     for (let i = 0; i < properties.length; i++) {
+//       var response = await postService.getPostByPropertyId(properties[i].id);
+//       posts.push(response);
+//     }
 
-    res.json({ message: 'Posts found', data: posts });
-  } catch (error) {
-    res.status(500).send({ message: 'Internal server error', error: error.message });
-  }
-}
+//     res.json({ message: 'Posts found', data: posts });
+//   } catch (error) {
+//     res.status(500).send({ message: 'Internal server error', error: error.message });
+//   }
+// }
 
-module.exports = { create, update, get, delet, getPosts };
+module.exports = { create, update, get, delet };

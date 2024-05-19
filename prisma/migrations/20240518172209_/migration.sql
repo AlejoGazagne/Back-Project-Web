@@ -28,16 +28,6 @@ CREATE TABLE "Favorites" (
 );
 
 -- CreateTable
-CREATE TABLE "Valorations" (
-    "id" SERIAL NOT NULL,
-    "comment" TEXT NOT NULL,
-    "quailification" INTEGER NOT NULL,
-    "postId" INTEGER NOT NULL,
-
-    CONSTRAINT "Valorations_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Post" (
     "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
@@ -45,7 +35,7 @@ CREATE TABLE "Post" (
     "published" BOOLEAN NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "onSale" BOOLEAN NOT NULL,
-    "ubication" TEXT NOT NULL,
+    "ubication" DOUBLE PRECISION[],
     "frontImage" TEXT NOT NULL,
     "images" TEXT[],
     "type" TEXT NOT NULL,
@@ -53,9 +43,21 @@ CREATE TABLE "Post" (
     "bathrooms" INTEGER NOT NULL,
     "garage" INTEGER NOT NULL,
     "area" DOUBLE PRECISION NOT NULL,
+    "pool" BOOLEAN NOT NULL,
+    "pets" BOOLEAN NOT NULL,
     "sellerId" INTEGER NOT NULL,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Valorations" (
+    "id" SERIAL NOT NULL,
+    "comment" TEXT NOT NULL,
+    "quailification" INTEGER NOT NULL,
+    "postId" INTEGER NOT NULL,
+
+    CONSTRAINT "Valorations_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -71,7 +73,7 @@ ALTER TABLE "Favorites" ADD CONSTRAINT "Favorites_postId_fkey" FOREIGN KEY ("pos
 ALTER TABLE "Favorites" ADD CONSTRAINT "Favorites_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Valorations" ADD CONSTRAINT "Valorations_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Post" ADD CONSTRAINT "Post_sellerId_fkey" FOREIGN KEY ("sellerId") REFERENCES "Seller"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Post" ADD CONSTRAINT "Post_sellerId_fkey" FOREIGN KEY ("sellerId") REFERENCES "Seller"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Valorations" ADD CONSTRAINT "Valorations_postId_fkey" FOREIGN KEY ("postId") REFERENCES "Post"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
