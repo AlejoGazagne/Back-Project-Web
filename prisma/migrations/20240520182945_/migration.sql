@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Post" ALTER COLUMN "ubication" SET NOT NULL,
+ALTER COLUMN "ubication" SET DATA TYPE TEXT;
