@@ -44,7 +44,7 @@ model Post {
   published   Boolean
   price       Float
   onSale      Boolean
-  ubication   String[]
+  ubication   String
   frontImage  String
   images      String[]
   type        String
