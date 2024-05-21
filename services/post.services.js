@@ -117,7 +117,7 @@ class Post {
   }
 
   async createPost(body) {
-    const { title, content, published, price, onSale, ubication, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, seller, sellerId } = body;
+    const { title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, seller, sellerId } = body;
 
     const prisma = new PrismaClient();
     const post = await prisma.post.create({
@@ -128,6 +128,8 @@ class Post {
         price: price,
         onSale: onSale,
         ubication: ubication,
+        city: city,
+        neighborhood: neighborhood,
         frontImage: frontImage,
         images: images,
         type: type,
@@ -145,7 +147,7 @@ class Post {
   }
 
   async updatePost(body) {
-    const { id, title, content, published, price, onSale, ubication, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, } = body;
+    const { id, title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, } = body;
 
     const prisma = new PrismaClient();
     const post = await prisma.post.update({
@@ -159,6 +161,8 @@ class Post {
         price: price,
         onSale: onSale,
         ubication: ubication,
+        city: city,
+        neighborhood: neighborhood,
         frontImage: frontImage,
         images: images,
         type: type,
