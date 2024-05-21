@@ -44,4 +44,22 @@ const verifyTokenSeller = (req, res, next) => {
   }
 }
 
-module.exports = { verifyTokenUser, verifyTokenSeller };
+const validateAnyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({ message: "No autorizado" });
+  }
+  try {
+    const decoded = jwt.verify(token, JWT_SECRET);
+    const role = decoded.role;
+
+    if (role === 'seller') return res.status(200).json({ message: "seller" })
+    if (role === 'user') return res.status(200).json({ message: "user" })
+
+  } catch (error) {
+    return res.status(403).json({ message: "?" });
+  }
+}
+
+module.exports = { verifyTokenUser, verifyTokenSeller, validateAnyToken };

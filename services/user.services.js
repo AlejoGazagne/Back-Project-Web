@@ -7,19 +7,22 @@ class UserServices {
   constructor() { }
 
   async getUserByEmail(email) {
-    const prisma = new PrismaClient();
-    const user = await prisma.user.findUnique({
-      where: {
-        email: email,
-      },
-    });
-    return user;
+    try {
+      const prisma = new PrismaClient();
+      const user = await prisma.user.findUnique({
+        where: {
+          email: email,
+        },
+      });
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async createUser(body) {
     try {
       var { password, email } = body;
-      password = await hashPassword(password);
 
       const prisma = new PrismaClient();
       const user = await prisma.user.create({
