@@ -12,9 +12,8 @@ const VerifyToken = require("../middlewares/verifyToken.middleware");
 // router.use("/seller", sellerRouter);
 router.use("/account", account);
 
-router.use('/validate', VerifyToken.verifyTokenSeller, (req, res) => {
-    res.status(200).json({ message: "Token valido" });
-})
+router.use('/validate', VerifyToken.validateAnyToken)
+
 router.use("/", home) //traer 3 casas
 router.use("/user", VerifyToken.verifyTokenUser, userRouter);
 router.use("/seller", VerifyToken.verifyTokenSeller, sellerRouter);

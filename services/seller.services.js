@@ -4,13 +4,17 @@ class Seller {
   constructor() { }
 
   async getSellerByEmail(email) {
-    const prisma = new PrismaClient();
-    const seller = await prisma.seller.findUnique({
-      where: {
-        email: email,
-      },
-    });
-    return seller;
+    try {
+      const prisma = new PrismaClient();
+      const seller = await prisma.seller.findUnique({
+        where: {
+          email: email,
+        },
+      });
+      return seller;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async createSeller(body) {

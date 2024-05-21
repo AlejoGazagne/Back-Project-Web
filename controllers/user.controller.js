@@ -30,7 +30,7 @@ const get = async (req, res) => {
 
 const delet = async (req, res) => {
   try {
-    const response = await service.deleteUser(req.params.email);
+    const response = await service.deleteUser(req.token.email);
     res.json({ message: 'User deleted', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
