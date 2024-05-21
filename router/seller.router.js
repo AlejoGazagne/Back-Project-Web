@@ -5,7 +5,7 @@ const postRouter = require('./post.router')
 const sellerController = require('../controllers/seller.controller')
 
 router
-    .get('/:email', sellerController.get)
+    .get('/myAccount', sellerController.get)
     .post('/createSeller', sellerController.create)
     .put('/updateSeller', sellerController.update)
     .delete('/deleteSeller/:email', sellerController.delet)
