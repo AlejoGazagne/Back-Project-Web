@@ -14,7 +14,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const response = await service.updateSeller(req.body);
+    const response = await service.updateSeller(req.token.id, req.body);
     res.json({ message: 'Seller updated', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
@@ -23,7 +23,7 @@ const update = async (req, res) => {
 
 const get = async (req, res) => {
   try {
-    const response = await service.getSellerByEmail(req.params.email);
+    const response = await service.getSellerByEmail(req.token.email);
     res.json({ message: 'Seller found', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });

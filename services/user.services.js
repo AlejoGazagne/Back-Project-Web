@@ -35,16 +35,17 @@ class UserServices {
 
   }
 
-  async updateUser(body) {
+  async updateUser(id, body) {
     const { email, password } = body;
     password = await hashPassword(password);
 
     const prisma = new PrismaClient();
     const user = await prisma.user.update({
       where: {
-        email: email
+        id: id
       },
       data: {
+        email: email,
         password: password
       }
     });

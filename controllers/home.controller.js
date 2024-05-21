@@ -4,12 +4,10 @@ const postServices = new PostServices;
 const getThreePosts = async (req, res) => {
   try {
     let posts = await postServices.getThreePost();
+    let response = [];
     for (let i = 0; i < posts.length; i++) {
-      delete posts[i].images;
-      delete posts[i].area;
-      delete posts[i].sellerId;
-      delete posts[i].published;
-      delete posts[i].ubication;
+      const { id, title, rice, descrition, rooms, bathrooms, garage } = posts[i];
+      response.push({ id, title, rice, descrition, rooms, bathrooms, garage });
     }
     return res.status(200).json(posts);
   } catch (error) {

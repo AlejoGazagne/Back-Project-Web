@@ -28,15 +28,16 @@ class Seller {
     return seller;
   }
 
-  async updateSeller(body) {
+  async updateSeller(id, body) {
     const { email, password, name, phoneNumber } = body;
 
     const prisma = new PrismaClient();
     const seller = await prisma.seller.update({
       where: {
-        email: email
+        id: id
       },
       data: {
+        email: email,
         password: password,
         name: name,
         phoneNumber: phoneNumber
