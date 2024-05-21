@@ -8,7 +8,7 @@ router
     .get('/myAccount', sellerController.get)
     .post('/createSeller', sellerController.create)
     .put('/updateSeller', sellerController.update)
-    .delete('/deleteSeller/:email', sellerController.delet)
+    .delete('/deleteSeller', sellerController.delet)
 
 router.use('/post', postRouter)
 

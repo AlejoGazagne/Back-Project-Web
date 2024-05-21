@@ -32,7 +32,7 @@ const get = async (req, res) => {
 
 const delet = async (req, res) => {
   try {
-    const response = await service.deleteSeller(req.params.email);
+    const response = await service.deleteSeller(req.token.email);
     res.json({ message: 'Seller deleted', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });

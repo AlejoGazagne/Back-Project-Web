@@ -6,6 +6,6 @@ router
     .get('/myAccount', userController.get)
     .post('/createUser', userController.create)
     .put('/updateUser', userController.update)
-    .delete('/deleteUser/:email', userController.delet)
+    .delete('/deleteUser', userController.delet)
 
 module.exports = router
