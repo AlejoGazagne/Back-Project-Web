@@ -30,9 +30,7 @@ const authenticateAccount = async (req, res) => {
       return res.status(200).json({ message: "Usuario autentificado", token: token });
     }
 
-    console.log(user);
     const verifyU = await verifyPassword(user.password, password)
-    console.log(verifyU);
     if (!verifyU) {
       return res.status(401).json({ message: "Usuario no encontrado 3" });
     }
