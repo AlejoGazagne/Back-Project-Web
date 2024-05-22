@@ -1,14 +1,14 @@
 const UserServices = require('../services/user.services');
 const service = new UserServices();
 
-const create = async (req, res) => {
-  try {
-    const response = await service.createUser(req.body);
-    res.json({ message: 'User created', data: response });
-  } catch (error) {
-    res.status(500).send({ message: 'Internal server error' });
-  }
-}
+// const create = async (req, res) => {
+//   try {
+//     const response = await service.createUser(req.body);
+//     res.json({ message: 'User created', data: response });
+//   } catch (error) {
+//     res.status(500).send({ message: 'Internal server error' });
+//   }
+// }
 
 const update = async (req, res) => {
   try {
@@ -37,4 +37,4 @@ const delet = async (req, res) => {
   }
 }
 
-module.exports = { create, update, get, delet };
+module.exports = { update, get, delet };

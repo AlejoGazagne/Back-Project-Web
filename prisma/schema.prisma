@@ -16,6 +16,8 @@ datasource db {
 model User {
   id              Int         @id @default(autoincrement())
   email           String      @unique
+  name            String
+  phoneNumber     String
   password        String
   savedProperties Favorites[]
 }
@@ -60,6 +62,7 @@ model Post {
   sellerId     Int
   saved        Favorites[]
   valorations  Valorations[]
+  datetime     String
 }
 
 model Valorations {

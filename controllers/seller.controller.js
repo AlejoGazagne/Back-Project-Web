@@ -3,14 +3,14 @@ const service = new SellerService();
 const PostService = require('../services/post.services');
 const postService = new PostService();
 
-const create = async (req, res) => {
-  try {
-    const response = await service.createSeller(req.body);
-    res.json({ message: 'Seller created', data: response });
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-}
+// const create = async (req, res) => {
+//   try {
+//     const response = await service.createSeller(req.body);
+//     res.json({ message: 'Seller created', data: response });
+//   } catch (error) {
+//     res.status(500).send({ message: error.message });
+//   }
+// }
 
 const update = async (req, res) => {
   try {
@@ -60,4 +60,4 @@ const delet = async (req, res) => {
 //   }
 // }
 
-module.exports = { create, update, get, delet };
+module.exports = { update, get, delet };

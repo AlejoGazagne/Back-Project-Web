@@ -117,7 +117,7 @@ class Post {
   }
 
   async createPost(body) {
-    const { title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, seller, sellerId } = body;
+    const { title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, seller, sellerId, datetime } = body;
 
     const prisma = new PrismaClient();
     const post = await prisma.post.create({
@@ -141,6 +141,7 @@ class Post {
         pets: pets,
         seller: seller,
         sellerId: sellerId,
+        datetime: datetime
       },
     });
     return post;
