@@ -10,7 +10,9 @@ POSTS
   "published": true,
   "price": 350000,
   "onSale": false,
-  "ubication": [],
+  "ubication": "mendiolaza",
+  "city": "Cordoba",
+  "neighborhood": "El talar",
   "frontImage": "asdasdasd",
   "image": ["321321321", "654654654"],
   "type": "Departamento",
@@ -19,7 +21,8 @@ POSTS
   "garage": 1,
   "area": 110,
   "pool": false,
-  "pets": true
+  "pets": true,
+  "datetime": ""
 }
 
 SELLER 

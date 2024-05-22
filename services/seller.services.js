@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const { hashPassword } = require('./hashPassword.services');
 
 class Seller {
   constructor() { }
@@ -18,7 +19,8 @@ class Seller {
   }
 
   async createSeller(body) {
-    const { password, email, name, phoneNumber } = body;
+    let { password, email, name, phoneNumber } = body;
+    password = await hashPassword(password)
 
     const prisma = new PrismaClient();
     const seller = await prisma.seller.create({
@@ -34,6 +36,7 @@ class Seller {
 
   async updateSeller(id, body) {
     const { email, password, name, phoneNumber } = body;
+    password = await hashPassword(password)
 
     const prisma = new PrismaClient();
     const seller = await prisma.seller.update({

@@ -3,9 +3,6 @@ const postService = new PostService();
 
 const create = async (req, res) => {
   try {
-    // console.log('creando post')
-    // console.log(req.token)
-    // console.log(req.body)
     //Verificar que esten los valores
     req.body.sellerId = req.token.id;
     const response = await postService.createPost(req.body);
@@ -45,7 +42,12 @@ const delet = async (req, res) => {
 
 const getMyPosts = async (req, res) => {
   try {
-    const response = await postService.getMyPosts(req.token.id);
+    const posts = await postService.getMyPosts(req.token.id);
+    var response = []
+    for (let i = 0; i < posts.length; i++) {
+      const { id, title, content, price, description, rooms, bathrooms, garage } = posts[i]
+      response.push({ id, title, content, price, description, rooms, bathrooms, garage })
+    }
     res.json({ message: 'Get my posts', data: response })
   } catch (error) {
     res.status(500).send({ message: error.message });
