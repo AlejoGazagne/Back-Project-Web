@@ -45,8 +45,8 @@ const getMyPosts = async (req, res) => {
     const posts = await postService.getMyPosts(req.token.id);
     var response = []
     for (let i = 0; i < posts.length; i++) {
-      const { id, title, content, price, description, rooms, bathrooms, garage } = posts[i]
-      response.push({ id, title, content, price, description, rooms, bathrooms, garage })
+      const { id, title, content, price, frontImage, description, rooms, bathrooms, garage } = posts[i]
+      response.push({ id, title, content, price, frontImage, description, rooms, bathrooms, garage })
     }
     res.json({ message: 'Get my posts', data: response })
   } catch (error) {
