@@ -20,7 +20,6 @@ class Seller {
 
   async createSeller(body) {
     let { password, email, name, phoneNumber } = body;
-    password = await hashPassword(password)
 
     const prisma = new PrismaClient();
     const seller = await prisma.seller.create({
