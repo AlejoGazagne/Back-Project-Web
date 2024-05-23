@@ -34,7 +34,7 @@ class Seller {
   }
 
   async updateSeller(id, body) {
-    const { email, password, name, phoneNumber } = body;
+    let { email, password, name, phoneNumber } = body;
     password = await hashPassword(password)
 
     const prisma = new PrismaClient();
