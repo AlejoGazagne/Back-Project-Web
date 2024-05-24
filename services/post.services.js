@@ -148,7 +148,7 @@ class Post {
   }
 
   async updatePost(body) {
-    const { id, title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, } = body;
+    const { id, title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, datetime } = body;
 
     const prisma = new PrismaClient();
     const post = await prisma.post.update({
@@ -173,6 +173,7 @@ class Post {
         area: area,
         pool: pool,
         pets: pets,
+        datetime: datetime
       },
     });
     return post;
