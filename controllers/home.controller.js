@@ -6,8 +6,8 @@ const getThreePosts = async (req, res) => {
     let posts = await postServices.getThreePost();
     let response = [];
     for (let i = 0; i < posts.length; i++) {
-      const { id, title, rice, descrition, rooms, bathrooms, garage } = posts[i];
-      response.push({ id, title, rice, descrition, rooms, bathrooms, garage });
+      const { id, title, rice, descrition, ubication, rooms, bathrooms, garage } = posts[i];
+      response.push({ id, title, rice, descrition, ubication, rooms, bathrooms, garage });
     }
     return res.status(200).json(posts);
   } catch (error) {

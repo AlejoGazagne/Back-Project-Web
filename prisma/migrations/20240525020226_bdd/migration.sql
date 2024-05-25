@@ -2,6 +2,8 @@
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
     "email" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "phoneNumber" TEXT NOT NULL,
     "password" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
@@ -48,6 +50,7 @@ CREATE TABLE "Post" (
     "pool" BOOLEAN NOT NULL,
     "pets" BOOLEAN NOT NULL,
     "sellerId" INTEGER NOT NULL,
+    "datetime" TEXT NOT NULL,
 
     CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
 );
