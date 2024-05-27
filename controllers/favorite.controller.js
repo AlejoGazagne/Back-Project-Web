@@ -28,4 +28,15 @@ const create = async (req, res) => {
   }
 }
 
-module.exports = { get, create };
+const delet = async (req, res) => {
+  try {
+    req.body.userId = req.token.id;
+    console.log(req.body);
+    const response = await favoriteService.deleteFavorite(req.body);
+    res.json({ message: 'Favorite deleted', data: response });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error' });
+  }
+}
+
+module.exports = { get, create, delet };
