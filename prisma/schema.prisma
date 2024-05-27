@@ -23,12 +23,14 @@ model User {
 }
 
 model Seller {
-  id          Int    @id @default(autoincrement())
-  name        String
-  email       String @unique
-  phoneNumber String
-  password    String
-  posts       Post[]
+  id           Int    @id @default(autoincrement())
+  name         String
+  email        String @unique
+  phoneNumber  String
+  password     String
+  profileImage String
+  description  String
+  posts        Post[]
 }
 
 model Favorites {

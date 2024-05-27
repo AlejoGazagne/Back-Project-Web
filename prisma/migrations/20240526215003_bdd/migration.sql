@@ -16,6 +16,8 @@ CREATE TABLE "Seller" (
     "email" TEXT NOT NULL,
     "phoneNumber" TEXT NOT NULL,
     "password" TEXT NOT NULL,
+    "profileImage" TEXT NOT NULL,
+    "description" TEXT NOT NULL,
 
     CONSTRAINT "Seller_pkey" PRIMARY KEY ("id")
 );

@@ -19,7 +19,7 @@ class Seller {
   }
 
   async createSeller(body) {
-    let { password, email, name, phoneNumber } = body;
+    let { password, email, name, phoneNumber, profileImage, description } = body;
 
     const prisma = new PrismaClient();
     const seller = await prisma.seller.create({
@@ -27,14 +27,16 @@ class Seller {
         email: email,
         password: password,
         name: name,
-        phoneNumber: phoneNumber
+        phoneNumber: phoneNumber,
+        profileImage: profileImage,
+        description: description
       }
     });
     return seller;
   }
 
   async updateSeller(id, body) {
-    let { email, password, name, phoneNumber } = body;
+    let { email, password, name, phoneNumber, profileImage, description } = body;
     password = await hashPassword(password)
 
     const prisma = new PrismaClient();
@@ -46,7 +48,9 @@ class Seller {
         email: email,
         password: password,
         name: name,
-        phoneNumber: phoneNumber
+        phoneNumber: phoneNumber,
+        profileImage: profileImage,
+        description: description
       }
     });
     return seller;

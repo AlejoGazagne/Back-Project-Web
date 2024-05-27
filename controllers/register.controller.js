@@ -9,9 +9,10 @@ const { hash } = require("argon2");
 const registerAccount = async (req, res) => {
   try {
     const { email, password, type, name, phoneNumber } = req.body;
+    console.log(req.body);
 
     if (type === 1) {
-      if (!email || !password) {
+      if (!email || !password || !name || !phoneNumber) {
         return res.status(400).json({ message: "Faltan campos" });
       }
       const user = await userService.getUserByEmail(email);

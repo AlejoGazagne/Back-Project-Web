@@ -25,6 +25,28 @@ class Favorites {
     })
     return favorite;
   }
+
+  async deleteFavorite(body) {
+    const { userId, postId } = body;
+
+    const prisma = new PrismaClient();
+    const favorite = await prisma.favorites.findFirst({
+      where: {
+        userId: userId,
+        postId: postId
+
+      }
+    })
+    if (favorite) {
+      const deleted = await prisma.favorites.delete({
+        where: {
+          id: favorite.id
+        }
+      })
+      return deleted;
+    }
+    return null;
+  }
 }
 
 module.exports = Favorites;
