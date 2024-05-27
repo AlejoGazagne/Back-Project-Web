@@ -27,7 +27,7 @@ const authenticateAccount = async (req, res) => {
       // }
 
       const token = generateToken(seller, "seller");
-      return res.status(200).json({ message: "Usuario autentificado", token: token });
+      return res.status(200).json({ message: "Usuario autentificado", token: token, role: "seller" });
     }
 
     const verifyU = await verifyPassword(user.password, password)
@@ -39,7 +39,7 @@ const authenticateAccount = async (req, res) => {
     // }
 
     const token = generateToken(user, "user");
-    return res.status(200).json({ message: "Usuario autentificado", token: token });
+    return res.status(200).json({ message: "Usuario autentificado", token: token, role: "user" });
 
   } catch (error) {
     console.log(error);

@@ -22,7 +22,7 @@ const registerAccount = async (req, res) => {
       req.body.password = await hashPassword(password);
       const newUser = await userService.createUser(req.body);
       const token = generateToken(newUser, "user");
-      return res.status(200).json({ message: "Usuario registrado", token: token });
+      return res.status(200).json({ message: "Usuario registrado", token: token, role: "user" });
     }
     if (type === 2) {
       if (!email || !password || !name || !phoneNumber) {
@@ -37,7 +37,7 @@ const registerAccount = async (req, res) => {
       req.body.password = await hashPassword(password);
       const newSeller = await sellerService.createSeller(req.body);
       const token = generateToken(newSeller, "seller");
-      return res.status(200).json({ message: "Vendedor registrado", token: token });
+      return res.status(200).json({ message: "Vendedor registrado", token: token, role: "seller" });
     }
     return res.status(400).json({ message: "Tipo de cuenta no válido" });
 
