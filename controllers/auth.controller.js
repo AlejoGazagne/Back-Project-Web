@@ -16,11 +16,11 @@ const authenticateAccount = async (req, res) => {
       const seller = await sellerService.getSellerByEmail(email);
       console.log(seller);
       if (!seller) {
-        return res.status(401).json({ message: "Usuario no encontrado 1" });
+        return res.status(401).json({ message: "Usuario no encontrado" });
       }
       const verifyS = await verifyPassword(seller.password, password)
       if (!verifyS) {
-        return res.status(401).json({ message: "Usuario no encontrado 2" });
+        return res.status(401).json({ message: "Usuario no encontrado" });
       }
       // if (seller.password !== password) {
       //   return res.status(401).json({ message: "Usuario no encontrado" });
@@ -32,7 +32,7 @@ const authenticateAccount = async (req, res) => {
 
     const verifyU = await verifyPassword(user.password, password)
     if (!verifyU) {
-      return res.status(401).json({ message: "Usuario no encontrado 3" });
+      return res.status(401).json({ message: "Usuario no encontrado" });
     }
     // if (user.password !== password) {
     //   return res.status(401).json({ message: "Usuario no encontrado" });

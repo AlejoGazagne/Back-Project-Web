@@ -13,7 +13,7 @@ const service = new UserServices();
 const update = async (req, res) => {
   try {
     const response = await service.updateUser(req.token.id, req.body);
-    res.json({ message: 'User updated', data: response });
+    res.status(200).json({ message: 'User updated', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }
@@ -22,7 +22,7 @@ const update = async (req, res) => {
 const get = async (req, res) => {
   try {
     const response = await service.getUserByEmail(req.token.email);
-    res.json({ message: 'User found', data: response });
+    res.status(200).json({ message: 'User found', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }
@@ -31,7 +31,7 @@ const get = async (req, res) => {
 const delet = async (req, res) => {
   try {
     const response = await service.deleteUser(req.token.email);
-    res.json({ message: 'User deleted', data: response });
+    res.status(200).json({ message: 'User deleted', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }

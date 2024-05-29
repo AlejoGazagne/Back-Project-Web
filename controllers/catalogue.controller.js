@@ -22,7 +22,7 @@ const getPostsFilter = async (req, res) => {
       const { id, title, price, frontImage, description, rooms, bathrooms, garage } = posts[i]
       response.push({ id, title, price, frontImage, description, rooms, bathrooms, garage })
     }
-    res.json({ message: 'Get posts', data: response })
+    res.status(200).json({ message: 'Get posts', data: response })
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -31,7 +31,7 @@ const getPostsFilter = async (req, res) => {
 const getPostById = async (req, res) => {
   try {
     const response = await postService.getPostById(parseInt(req.params.id));
-    res.json({ message: 'Get post by id', data: response })
+    res.status(200).json({ message: 'Get post by id', data: response })
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
