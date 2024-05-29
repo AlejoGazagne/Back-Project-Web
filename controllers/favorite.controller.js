@@ -36,7 +36,7 @@ const delet = async (req, res) => {
     const response = await favoriteService.deleteFavorite(req.body);
     res.json({ message: 'Favorite deleted', data: response });
   } catch (error) {
-    res.status(500).send({ message: 'Internal server error' });
+    res.status(500).send({ message: 'Internal server error', error: error.message });
   }
 }
 
