@@ -58,7 +58,6 @@ class Favorites {
     } catch (error) {
       throw error;
     }
-
   }
 }
 
