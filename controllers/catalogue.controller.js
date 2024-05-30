@@ -11,7 +11,7 @@ const getSomePost = async (req, res) => {
       const { id, title, price, frontImage, description, rooms, bathrooms, garage } = posts[i]
       response.push({ id, title, price, frontImage, description, rooms, bathrooms, garage })
     }
-    res.status(200).json(posts);
+    res.status(200).json({ message: 'Get posts', data: response });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -19,11 +19,13 @@ const getSomePost = async (req, res) => {
 
 const getPostsFilter = async (req, res) => {
   try {
-    const response = await postService.getPosts(req.body);
-    for (let i = 0; i < response.length; i++) {
-      const { id, title, price, frontImage, description, rooms, bathrooms, garage } = posts[i]
-      response.push({ id, title, price, frontImage, description, rooms, bathrooms, garage })
+    const posts = await postService.getPosts(req.query);
+    var response = [];
+    for (let i = 0; i < posts.length; i++) {
+      const { id, title, price, frontImage, content, rooms, bathrooms, garage } = posts[i]
+      response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage })
     }
+    console.log(response)
     res.status(200).json({ message: 'Get posts', data: response })
   } catch (error) {
     res.status(500).send({ message: error.message });
@@ -32,8 +34,7 @@ const getPostsFilter = async (req, res) => {
 
 const getPostById = async (req, res) => {
   try {
-    console.log(req.params.id)
-    const response = await postService.getPostById();
+    const response = await postService.getPostById(parseInt(req.params.id));
     const seller = await sellerService.getSellerById(response.sellerId)
     res.status(200).json({ message: 'Get post by id', data: response, seller: seller })
   } catch (error) {

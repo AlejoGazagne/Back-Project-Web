@@ -61,47 +61,35 @@ class Post {
     }
   }
 
-  async getPosts(body) {
+  async getPosts(input) {
     try {
-      const { name, price, ubication, type, rooms, bathrooms, garage, area, onSale, pool, pets } = body;
+      const { type, operation, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
+      const onSale = JSON.parse(operation);
+      const Vpets = JSON.parse(pets);
+      const Vpool = JSON.parse(pool);
 
       const prisma = new PrismaClient();
       const posts = await prisma.post.findMany({
         where: {
-          title: { contains: name, },
-          price: {
-            gte: price * 0.85,
-            lte: price * 1.15,
-          },
-          ubication: {
-            contains: ubication,
-          },
-          type: {
-            contains: type,
-            contains: name
-          },
-          price: {
-            gte: price * 0.85,
-            lte: price * 1.15
-          },
-          ubication: {
-            contains: ubication
-          },
-          type: {
-            contains: type
-          },
-          rooms: rooms,
-          bathrooms: bathrooms,
-          garage: garage,
-          area: area,
+          type: type,
           onSale: onSale,
+          price: {
+            gte: parseFloat(priceMin),
+            lte: parseFloat(priceMax),
+          },
+          city: city,
+          neighborhood: neighborhood,
+          rooms: parseInt(roomCount),
+          bathrooms: parseInt(bathroomCount),
+          garage: parseInt(garageCount),
           published: true,
-          pool: pool,
-          pets: pets
+          pool: Vpool,
+          pets: Vpets
         }
       });
       return posts;
     } catch (error) {
+      //console.log(error)
       throw error;
     }
   }
