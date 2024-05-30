@@ -34,8 +34,8 @@ const postSchema = z.object({
   bathrooms: z.number().int().positive().refine(value => value > 0, {
     message: 'La cantidad de baños debe ser un número entero positivo',
   }),
-  garage: z.number().int().positive().refine(value => value > 0, {
-    message: 'La cantidad de cocheras debe ser un número entero positivo',
+  garage: z.number().int().refine(value => value >= 0, {
+    message: 'La cantidad de cocheras debe ser un número entero no negativo',
   }),
   area: z.number().positive().refine(value => value > 0, {
     message: 'La superficie debe ser un número positivo',
