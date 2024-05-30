@@ -1,5 +1,6 @@
 const UserServices = require('../services/user.services');
 const service = new UserServices();
+const { validateUser } = require('../schemas/user.schemas')
 
 // const create = async (req, res) => {
 //   try {

@@ -4,6 +4,21 @@ const { hashPassword } = require('./hashPassword.services');
 class Seller {
   constructor() { }
 
+  async getSellerById(id) {
+    try {
+      const prisma = new PrismaClient();
+      const seller = await prisma.seller.findUnique({
+        where: {
+          id: id,
+        },
+      });
+      return seller;
+    }
+    catch (error) {
+      throw error;
+    }
+  }
+
   async getSellerByEmail(email) {
     try {
       const prisma = new PrismaClient();

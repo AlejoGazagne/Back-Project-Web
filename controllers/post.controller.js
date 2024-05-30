@@ -1,12 +1,19 @@
 const PostService = require("../services/post.services");
 const postService = new PostService();
+const { validatePost, validatePartialPost } = require('../schemas/post.schemas')
+
 
 const create = async (req, res) => {
   try {
     //Verificar que esten los valores
     req.body.sellerId = req.token.id;
+    const result = validatePost(req.body)
+    if (!result.success)
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
+
     const response = await postService.createPost(req.body);
     res.status(200).json({ message: 'Post created', data: response });
+
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -14,6 +21,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
+    console.log(req.body)
     //Verificar que esten los valores
     const response = await postService.updatePost(req.body);
     res.status(200).json({ message: 'Post updated', data: response });

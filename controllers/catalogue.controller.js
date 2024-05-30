@@ -1,5 +1,7 @@
 const PostService = require("../services/post.services");
 const postService = new PostService();
+const SellerService = require("../services/seller.services");
+const sellerService = new SellerService()
 
 const getSomePost = async (req, res) => {
   try {
@@ -30,8 +32,10 @@ const getPostsFilter = async (req, res) => {
 
 const getPostById = async (req, res) => {
   try {
-    const response = await postService.getPostById(parseInt(req.params.id));
-    res.status(200).json({ message: 'Get post by id', data: response })
+    console.log(req.params.id)
+    const response = await postService.getPostById();
+    const seller = await sellerService.getSellerById(response.sellerId)
+    res.status(200).json({ message: 'Get post by id', data: response, seller: seller })
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
