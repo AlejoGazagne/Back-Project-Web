@@ -15,7 +15,7 @@ const postService = new PostService();
 const update = async (req, res) => {
   try {
     const response = await service.updateSeller(req.token.id, req.body);
-    res.json({ message: 'Seller updated', data: response });
+    res.status(200).json({ message: 'Seller updated', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }
@@ -24,7 +24,7 @@ const update = async (req, res) => {
 const get = async (req, res) => {
   try {
     const response = await service.getSellerByEmail(req.token.email);
-    res.json({ message: 'Seller found', data: response });
+    res.status(200).json({ message: 'Seller found', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }
@@ -33,7 +33,7 @@ const get = async (req, res) => {
 const delet = async (req, res) => {
   try {
     const response = await service.deleteSeller(req.token.email);
-    res.json({ message: 'Seller deleted', data: response });
+    res.status(200).json({ message: 'Seller deleted', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }

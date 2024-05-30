@@ -1,12 +1,19 @@
 const PostService = require("../services/post.services");
 const postService = new PostService();
+const { validatePost, validatePartialPost } = require('../schemas/post.schemas')
+
 
 const create = async (req, res) => {
   try {
     //Verificar que esten los valores
     req.body.sellerId = req.token.id;
+    const result = validatePost(req.body)
+    if (!result.success)
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
+
     const response = await postService.createPost(req.body);
-    res.json({ message: 'Post created', data: response });
+    res.status(200).json({ message: 'Post created', data: response });
+
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -14,9 +21,10 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
+    console.log(req.body)
     //Verificar que esten los valores
     const response = await postService.updatePost(req.body);
-    res.json({ message: 'Post updated', data: response });
+    res.status(200).json({ message: 'Post updated', data: response });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -25,7 +33,7 @@ const update = async (req, res) => {
 const get = async (req, res) => {
   try {
     const response = await postService.getPosts(req.body);
-    res.json({ message: 'Get posts', data: response })
+    res.status(200).json({ message: 'Get posts', data: response })
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -34,7 +42,7 @@ const get = async (req, res) => {
 const delet = async (req, res) => {
   try {
     const response = await postService.deletePost(req.params.id);
-    res.json({ message: 'Post deleted', data: response });
+    res.status(200).json({ message: 'Post deleted', data: response });
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -48,7 +56,7 @@ const getMyPosts = async (req, res) => {
       const { id, title, content, price, ubication, frontImage, description, rooms, bathrooms, garage } = posts[i]
       response.push({ id, title, content, price, ubication, frontImage, description, rooms, bathrooms, garage })
     }
-    res.json({ message: 'Get my posts', data: response })
+    res.status(200).json({ message: 'Get my posts', data: response })
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

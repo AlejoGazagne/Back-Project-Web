@@ -11,7 +11,7 @@ const get = async (req, res) => {
       tmp = await postService.getPostById(favs[i].postId);
       response.push(tmp);
     }
-    res.json({ message: 'Favorites found', data: response });
+    res.status(200).json({ message: 'Favorites found', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }
@@ -22,7 +22,7 @@ const create = async (req, res) => {
     req.body.userId = req.token.id;
     //console.log(req.body);
     const response = await favoriteService.createFavorite(req.body);
-    res.json({ message: 'Favorite created', data: response });
+    res.status(200).json({ message: 'Favorite created', data: response });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }
@@ -34,9 +34,9 @@ const delet = async (req, res) => {
     req.body.userId = req.token.id;
     console.log(req.body);
     const response = await favoriteService.deleteFavorite(req.body);
-    res.json({ message: 'Favorite deleted', data: response });
+    res.status(200).json({ message: 'Favorite deleted', data: response });
   } catch (error) {
-    res.status(500).send({ message: 'Internal server error' });
+    res.status(500).send({ message: 'Internal server error', error: error.message });
   }
 }
 

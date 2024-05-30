@@ -4,48 +4,60 @@ class Favorites {
   constructor() { }
 
   async getFavorites(userId) {
-    const prisma = new PrismaClient();
-    const favorites = await prisma.favorites.findMany({
-      where: {
-        userId: userId
-      }
-    });
-    return favorites;
+    try {
+      const prisma = new PrismaClient();
+      const favorites = await prisma.favorites.findMany({
+        where: {
+          userId: userId
+        }
+      });
+      return favorites;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async createFavorite(body) {
-    const { userId, postId } = body;
+    try {
+      const { userId, postId } = body;
 
-    const prisma = new PrismaClient();
-    const favorite = await prisma.favorites.create({
-      data: {
-        userId: userId,
-        postId: postId
-      }
-    })
-    return favorite;
+      const prisma = new PrismaClient();
+      const favorite = await prisma.favorites.create({
+        data: {
+          userId: userId,
+          postId: postId
+        }
+      })
+      return favorite;
+    } catch (error) {
+      throw error;
+    }
   }
 
   async deleteFavorite(body) {
-    const { userId, postId } = body;
+    try {
+      const { userId, postId } = body;
 
-    const prisma = new PrismaClient();
-    const favorite = await prisma.favorites.findFirst({
-      where: {
-        userId: userId,
-        postId: postId
-
-      }
-    })
-    if (favorite) {
-      const deleted = await prisma.favorites.delete({
+      const prisma = new PrismaClient();
+      const favorite = await prisma.favorites.findFirst({
         where: {
-          id: favorite.id
+          userId: userId,
+          postId: postId
+
         }
       })
-      return deleted;
+      if (favorite) {
+        const deleted = await prisma.favorites.delete({
+          where: {
+            id: favorite.id
+          }
+        })
+        return deleted;
+      }
+      return null;
+    } catch (error) {
+      throw error;
     }
-    return null;
   }
 }
 

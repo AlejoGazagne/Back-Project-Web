@@ -15,7 +15,7 @@ class UserServices {
       });
       return user;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
   }
 
@@ -34,7 +34,7 @@ class UserServices {
       });
       return user;
     } catch (error) {
-      console.log(error);
+      throw error;
     }
 
   }
@@ -58,19 +58,23 @@ class UserServices {
       });
       return user;
     } catch (error) {
-      console.log(error)
+      throw error;
     }
 
   }
 
   async deleteUser(email) {
-    const prisma = new PrismaClient();
-    const user = await prisma.user.delete({
-      where: {
-        email: email
-      }
-    });
-    return user;
+    try {
+      const prisma = new PrismaClient();
+      const user = await prisma.user.delete({
+        where: {
+          email: email
+        }
+      });
+      return user;
+    } catch (error) {
+      throw error;
+    }
   }
 }
 
