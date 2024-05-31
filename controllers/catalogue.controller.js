@@ -8,8 +8,8 @@ const getSomePost = async (req, res) => {
     const posts = await postService.getSomePost(req.body);
     let response = [];
     for (let i = 0; i < posts.length; i++) {
-      const { id, title, price, frontImage, description, rooms, bathrooms, garage } = posts[i]
-      response.push({ id, title, price, frontImage, description, rooms, bathrooms, garage })
+      const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts[i]
+      response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage, ubication })
     }
     res.status(200).json({ message: 'Get posts', data: response });
   } catch (error) {
@@ -19,11 +19,12 @@ const getSomePost = async (req, res) => {
 
 const getPostsFilter = async (req, res) => {
   try {
+    console.log(req.query)
     const posts = await postService.getPosts(req.query);
     var response = [];
     for (let i = 0; i < posts.length; i++) {
-      const { id, title, price, frontImage, content, rooms, bathrooms, garage } = posts[i]
-      response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage })
+      const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts[i]
+      response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage, ubication })
     }
     console.log(response)
     res.status(200).json({ message: 'Get posts', data: response })
