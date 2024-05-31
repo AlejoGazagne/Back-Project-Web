@@ -63,33 +63,33 @@ class Post {
 
   async getPosts(input) {
     try {
-      const { type, operation, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
-      const onSale = JSON.parse(operation);
-      const Vpets = JSON.parse(pets);
-      const Vpool = JSON.parse(pool);
+      const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
+      //const onSale = JSON.parse(operation);
+      //const Vpets = JSON.parse(pets);
+      //const Vpool = JSON.parse(pool);
+
+      const where = {};
+
+      if (type != "") where.type = type;
+      if (onSale != "undefined") where.onSale = JSON.parse(onSale)
+      if (priceMin != "undefined") where.price = { ...where.price, gte: parseFloat(priceMin) };
+      if (priceMax != "undefined") where.price = { ...where.price, lte: parseFloat(priceMax) };
+      if (city != '') where.city = city;
+      if (neighborhood != '') where.neighborhood = neighborhood;
+      if (roomCount != "undefined") where.rooms = parseInt(roomCount);
+      if (bathroomCount != "undefined") where.bathrooms = parseInt(bathroomCount);
+      if (garageCount != "undefined") where.garage = parseInt(garageCount);
+      where.published = true;
+      if (JSON.parse(pool)) where.pool = JSON.parse(pool);
+      if (JSON.parse(pets)) where.pets = JSON.parse(pets);
+
+      console.log(where)
 
       const prisma = new PrismaClient();
-      const posts = await prisma.post.findMany({
-        where: {
-          type: type,
-          onSale: onSale,
-          price: {
-            gte: parseFloat(priceMin),
-            lte: parseFloat(priceMax),
-          },
-          city: city,
-          neighborhood: neighborhood,
-          rooms: parseInt(roomCount),
-          bathrooms: parseInt(bathroomCount),
-          garage: parseInt(garageCount),
-          published: true,
-          pool: Vpool,
-          pets: Vpets
-        }
-      });
+      const posts = await prisma.post.findMany({ where });
       return posts;
     } catch (error) {
-      //console.log(error)
+      console.log(error)
       throw error;
     }
   }
