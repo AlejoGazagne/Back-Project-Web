@@ -41,8 +41,8 @@ class UserServices {
 
   async updateUser(id, body) {
     try {
-      let { email, password, name, phoneNumber } = body;
-      password = await hashPassword(password);
+      let { email, name, phoneNumber } = body;
+      let userOld = await this.getUserByEmail(body.oldEmail);
 
       const prisma = new PrismaClient();
       const user = await prisma.user.update({
@@ -51,7 +51,7 @@ class UserServices {
         },
         data: {
           email: email,
-          password: password,
+          password: userOld.password,
           name: name,
           phoneNumber: phoneNumber
         }
@@ -60,7 +60,6 @@ class UserServices {
     } catch (error) {
       throw error;
     }
-
   }
 
   async deleteUser(email) {

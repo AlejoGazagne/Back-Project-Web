@@ -26,7 +26,7 @@ const getPostsFilter = async (req, res) => {
       const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts[i]
       response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage, ubication })
     }
-    console.log(response)
+    //console.log(response)
     res.status(200).json({ message: 'Get posts', data: response })
   } catch (error) {
     res.status(500).send({ message: error.message });

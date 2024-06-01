@@ -13,6 +13,7 @@ const { validateUser } = require('../schemas/user.schemas')
 
 const update = async (req, res) => {
   try {
+    req.body.oldEmail = req.token.email;
     const response = await service.updateUser(req.token.id, req.body);
     res.status(200).json({ message: 'User updated', data: response });
   } catch (error) {

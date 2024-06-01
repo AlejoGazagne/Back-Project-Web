@@ -56,8 +56,8 @@ class Seller {
 
   async updateSeller(id, body) {
     try {
-      let { email, password, name, phoneNumber, profileImage, description } = body;
-      password = await hashPassword(password)
+      let { email, name, phoneNumber, profileImage, description } = body;
+      let sellerOld = await this.getSellerById(id);
 
       const prisma = new PrismaClient();
       const seller = await prisma.seller.update({
@@ -66,7 +66,7 @@ class Seller {
         },
         data: {
           email: email,
-          password: password,
+          password: sellerOld.password,
           name: name,
           phoneNumber: phoneNumber,
           profileImage: profileImage,
