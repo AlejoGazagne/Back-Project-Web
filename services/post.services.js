@@ -64,21 +64,33 @@ class Post {
   async getPosts(input) {
     try {
       const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
-      //const onSale = JSON.parse(operation);
-      //const Vpets = JSON.parse(pets);
-      //const Vpool = JSON.parse(pool);
 
       const where = {};
 
       if (type != "") where.type = type;
       if (onSale != "undefined") where.onSale = JSON.parse(onSale)
-      if (priceMin != "undefined") where.price = { ...where.price, gte: parseFloat(priceMin) };
-      if (priceMax != "undefined") where.price = { ...where.price, lte: parseFloat(priceMax) };
+      if (priceMin != "") where.price = { ...where.price, gte: parseFloat(priceMin) };
+      if (priceMax != "") where.price = { ...where.price, lte: parseFloat(priceMax) };
       if (city != '') where.city = city;
       if (neighborhood != '') where.neighborhood = neighborhood;
-      if (roomCount != "undefined") where.rooms = parseInt(roomCount);
-      if (bathroomCount != "undefined") where.bathrooms = parseInt(bathroomCount);
-      if (garageCount != "undefined") where.garage = parseInt(garageCount);
+      if (roomCount != "") {
+        if (parseInt(roomCount) === 4)
+          where.rooms = { gte: parseInt(roomCount) }
+        else
+          where.rooms = parseInt(roomCount);
+      }
+      if (bathroomCount != "") {
+        if (parseInt(bathroomCount) === 4)
+          where.rooms = { gte: parseInt(bathroomCount) }
+        else
+          where.bathrooms = parseInt(bathroomCount);
+      }
+      if (garageCount != "") {
+        if (parseInt(garageCount) === 4)
+          where.rooms = { gte: parseInt(garageCount) }
+        else
+          where.garage = parseInt(garageCount);
+      }
       where.published = true;
       if (JSON.parse(pool)) where.pool = JSON.parse(pool);
       if (JSON.parse(pets)) where.pets = JSON.parse(pets);
