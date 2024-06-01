@@ -5,7 +5,9 @@ const sellerService = new SellerService()
 
 const getSomePost = async (req, res) => {
   try {
-    const posts = await postService.getSomePost(req.body);
+    let currentPage = parseInt(req.params.page)
+    console.log(currentPage)
+    const posts = await postService.getSomePost(currentPage);
     let response = [];
     for (let i = 0; i < posts.length; i++) {
       const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts[i]

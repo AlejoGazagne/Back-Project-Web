@@ -46,11 +46,14 @@ class Post {
     }
   }
 
-  async getSomePost() {
+  async getSomePost(currentPage) {
     try {
+      let pageSize = 10
+
       const prisma = new PrismaClient();
       const posts = await prisma.post.findMany({
-        take: 6,
+        skip: (currentPage - 1) * pageSize,
+        take: pageSize,
         where: {
           published: true
         }
