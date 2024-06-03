@@ -31,6 +31,7 @@ const getPostsFilter = async (req, res) => {
     //console.log(response)
     res.status(200).json({ message: 'Get posts', data: response })
   } catch (error) {
+    console.log(error)
     res.status(500).send({ message: error.message });
   }
 }

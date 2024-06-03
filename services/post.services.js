@@ -67,7 +67,8 @@ class Post {
   async getPosts(input) {
     try {
       const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
-
+      let currentPage = input.page || 1
+      let pageSize = 10
       const where = {};
 
       if (type != "") where.type = type;
@@ -101,7 +102,7 @@ class Post {
       console.log(where)
 
       const prisma = new PrismaClient();
-      const posts = await prisma.post.findMany({ where });
+      const posts = await prisma.post.findMany({ skip: (currentPage - 1) * pageSize, take: pageSize, where });
       return posts;
     } catch (error) {
       console.log(error)
