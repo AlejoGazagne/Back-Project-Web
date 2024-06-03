@@ -6,14 +6,14 @@ const sellerService = new SellerService()
 const getSomePost = async (req, res) => {
   try {
     let currentPage = parseInt(req.query.page)
-    console.log(currentPage)
+
     const posts = await postService.getSomePost(currentPage);
     let response = [];
     for (let i = 0; i < posts.length; i++) {
-      const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts[i]
+      const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts.posts[i]
       response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage, ubication })
     }
-    res.status(200).json({ message: 'Get posts', data: response });
+    res.status(200).json({ message: 'Get posts', data: { items: response, size: posts.size } });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -24,12 +24,12 @@ const getPostsFilter = async (req, res) => {
     console.log(req.query)
     const posts = await postService.getPosts(req.query);
     var response = [];
-    for (let i = 0; i < posts.length; i++) {
-      const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts[i]
+    for (let i = 0; i < posts.posts.length; i++) {
+      const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts.posts[i]
       response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage, ubication })
     }
     //console.log(response)
-    res.status(200).json({ message: 'Get posts', data: response })
+    res.status(200).json({ message: 'Get posts', data: { size: posts.size, items: response } })
   } catch (error) {
     console.log(error)
     res.status(500).send({ message: error.message });
