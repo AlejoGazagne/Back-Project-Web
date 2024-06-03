@@ -58,7 +58,11 @@ class Post {
           published: true
         }
       });
-      return posts;
+      const rsp = {
+        size: size,
+        posts: posts
+      }
+      return rsp;
     } catch (error) {
       throw error;
     }
@@ -102,8 +106,13 @@ class Post {
       console.log(where)
 
       const prisma = new PrismaClient();
+      const size = await prisma.post.count({ where })
       const posts = await prisma.post.findMany({ skip: (currentPage - 1) * pageSize, take: pageSize, where });
-      return posts;
+      const rsp = {
+        size: size,
+        posts: posts
+      }
+      return rsp;
     } catch (error) {
       console.log(error)
       throw error;
