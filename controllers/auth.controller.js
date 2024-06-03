@@ -79,12 +79,12 @@ const registerAccount = async (req, res) => {
       return res.status(200).json({ message: "Usuario registrado", token: token, role: "user" });
     }
     if (type === 2) {
-      const seller = await sellerService.getSellerByEmail(email);
+      const seller = await sellerService.getSellerByEmail(input.email);
       if (seller) {
         return res.status(400).json({ message: "El vendedor ya existe" });
       }
 
-      req.body.password = await hashPassword(password);
+      req.body.password = await hashPassword(input.password);
       const newSeller = await sellerService.createSeller(req.body);
       const token = generateToken(newSeller, "seller");
       return res.status(200).json({ message: "Vendedor registrado", token: token, role: "seller" });
