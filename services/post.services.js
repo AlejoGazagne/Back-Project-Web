@@ -67,12 +67,12 @@ class Post {
   async getPosts(input) {
     try {
       const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
-      let currentPage = input.page || 1
+      let currentPage = parseInt(input.page)
       let pageSize = 10
       const where = {};
 
       if (type != "") where.type = type;
-      if (onSale != "undefined") where.onSale = JSON.parse(onSale)
+      if (onSale != "") where.onSale = JSON.parse(onSale)
       if (priceMin != "") where.price = { ...where.price, gte: parseFloat(priceMin) };
       if (priceMax != "") where.price = { ...where.price, lte: parseFloat(priceMax) };
       if (city != '') where.city = city;

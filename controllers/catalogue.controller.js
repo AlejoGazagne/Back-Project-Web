@@ -5,7 +5,7 @@ const sellerService = new SellerService()
 
 const getSomePost = async (req, res) => {
   try {
-    let currentPage = parseInt(req.params.page)
+    let currentPage = parseInt(req.query.page)
     console.log(currentPage)
     const posts = await postService.getSomePost(currentPage);
     let response = [];
@@ -40,8 +40,11 @@ const getPostById = async (req, res) => {
   try {
     const response = await postService.getPostById(parseInt(req.params.id));
     const seller = await sellerService.getSellerById(response.sellerId)
-    res.status(200).json({ message: 'Get post by id', data: response, seller: seller })
+    console.log(response)
+    console.log(seller)
+    res.status(200).json({ message: seller, data: response })
   } catch (error) {
+    console.log(error)
     res.status(500).send({ message: error.message });
   }
 }
