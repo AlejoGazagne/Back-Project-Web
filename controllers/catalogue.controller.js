@@ -9,7 +9,7 @@ const getSomePost = async (req, res) => {
 
     const posts = await postService.getSomePost(currentPage);
     let response = [];
-    for (let i = 0; i < posts.length; i++) {
+    for (let i = 0; i < posts.posts.length; i++) {
       const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts.posts[i]
       response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage, ubication })
     }
@@ -42,7 +42,7 @@ const getPostById = async (req, res) => {
     const seller = await sellerService.getSellerById(response.sellerId)
     console.log(response)
     console.log(seller)
-    res.status(200).json({ message: seller, data: response })
+    res.status(200).json({ message: 'Get post', data: { items: response, seller: seller } })
   } catch (error) {
     console.log(error)
     res.status(500).send({ message: error.message });

@@ -51,6 +51,8 @@ class Post {
       let pageSize = 10
 
       const prisma = new PrismaClient();
+
+      const size = await prisma.post.count()
       const posts = await prisma.post.findMany({
         skip: (currentPage - 1) * pageSize,
         take: pageSize,
