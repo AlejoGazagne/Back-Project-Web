@@ -91,13 +91,13 @@ class Post {
       }
       if (bathroomCount != "") {
         if (parseInt(bathroomCount) === 4)
-          where.rooms = { gte: parseInt(bathroomCount) }
+          where.bathrooms = { gte: parseInt(bathroomCount) }
         else
           where.bathrooms = parseInt(bathroomCount);
       }
       if (garageCount != "") {
         if (parseInt(garageCount) === 4)
-          where.rooms = { gte: parseInt(garageCount) }
+          where.garage = { gte: parseInt(garageCount) }
         else
           where.garage = parseInt(garageCount);
       }
