@@ -13,7 +13,7 @@ const authenticateAccount = async (req, res) => {
       email: req.body.email,
       password: req.body.password
     }
-    console.log(input.email, input.password);
+    console.log(input);
 
     let result = validatePartialUser(input)
     if (!result.success) return res.status(400).json({ error: JSON.parse(result.error.message) })
