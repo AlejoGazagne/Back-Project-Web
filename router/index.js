@@ -13,7 +13,6 @@ const VerifyToken = require("../middlewares/verifyToken.middleware");
 router.use("/auth", account);
 router.use('/validate', VerifyToken.validateAnyToken);
 
-router.use("/", home) //traer 3 casas
 router.use("/user", VerifyToken.verifyTokenUser, userRouter);
 router.use("/seller", VerifyToken.verifyTokenSeller, sellerRouter);
 router.use('/properties', catalogue)

@@ -6,7 +6,6 @@ const sellerController = require('../controllers/seller.controller')
 
 router
     .get('/me', sellerController.get)
-    //.post('/createSeller', sellerController.create)
     .put('/update', sellerController.update)
     .delete('/delete', sellerController.delet)
 
