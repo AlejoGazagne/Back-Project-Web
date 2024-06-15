@@ -1,21 +1,13 @@
 const SellerService = require('../services/seller.services');
 const service = new SellerService();
-const PostService = require('../services/post.services');
-const postService = new PostService();
-
-// const create = async (req, res) => {
-//   try {
-//     const response = await service.createSeller(req.body);
-//     res.json({ message: 'Seller created', data: response });
-//   } catch (error) {
-//     res.status(500).send({ message: error.message });
-//   }
-// }
+const { generateToken } = require("../services/generateToken.services");
 
 const update = async (req, res) => {
   try {
     const response = await service.updateSeller(req.token.id, req.body);
-    res.status(200).json({ message: 'Seller updated', data: response });
+    console.log(response)
+    const token = generateToken(response, "seller");
+    res.status(200).json({ message: 'Seller updated', data: { response, token } });
   } catch (error) {
     res.status(500).send({ message: 'Internal server error' });
   }
@@ -38,26 +30,5 @@ const delet = async (req, res) => {
     res.status(500).send({ message: 'Internal server error' });
   }
 }
-
-// const getPosts = async (req, res) => {
-//   try {
-//     console.log(req.token);
-
-//     //const seller = await service.getSellerByEmail(req.token.email);
-
-//     const properties = await propertyService.getPropertiesBySellerId(sellerId);
-//     console.log(properties);
-//     var posts = [];
-
-//     for (let i = 0; i < properties.length; i++) {
-//       var response = await postService.getPostByPropertyId(properties[i].id);
-//       posts.push(response);
-//     }
-
-//     res.json({ message: 'Posts found', data: posts });
-//   } catch (error) {
-//     res.status(500).send({ message: 'Internal server error', error: error.message });
-//   }
-// }
 
 module.exports = { update, get, delet };

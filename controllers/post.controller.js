@@ -21,8 +21,10 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    console.log(req.body)
-    //Verificar que esten los valores
+    const result = validatePartialPost(req.body)
+    if (!result.success)
+      return res.status(400).json({ error: JSON.parse(result.error.message) })
+
     const response = await postService.updatePost(req.body);
     res.status(200).json({ message: 'Post updated', data: response });
   } catch (error) {
@@ -53,8 +55,8 @@ const getMyPosts = async (req, res) => {
     const posts = await postService.getMyPosts(req.token.id);
     var response = []
     for (let i = 0; i < posts.length; i++) {
-      const { id, title, content, price, ubication, frontImage, description, rooms, bathrooms, garage } = posts[i]
-      response.push({ id, title, content, price, ubication, frontImage, description, rooms, bathrooms, garage })
+      const { id, title, content, price, ubication, published, frontImage, description, rooms, bathrooms, garage } = posts[i]
+      response.push({ id, title, content, price, ubication, published, frontImage, description, rooms, bathrooms, garage })
     }
     res.status(200).json({ message: 'Get my posts', data: response })
   } catch (error) {

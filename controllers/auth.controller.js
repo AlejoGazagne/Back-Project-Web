@@ -5,7 +5,6 @@ const userService = new UserService();
 const { generateToken } = require("../services/generateToken.services");
 const { hashPassword, verifyPassword } = require('../services/hashPassword.services');
 const { validateUser, validatePartialUser } = require('../schemas/user.schemas')
-const { validateSeller, validatePartialSeller } = require('../schemas/seller.schemas')
 
 const authenticateAccount = async (req, res) => {
   try {
@@ -29,9 +28,6 @@ const authenticateAccount = async (req, res) => {
       if (!verifyS) {
         return res.status(401).json({ message: "Usuario no encontrado" });
       }
-      // if (seller.password !== password) {
-      //   return res.status(401).json({ message: "Usuario no encontrado" });
-      // }
 
       const token = generateToken(seller, "seller");
       return res.status(200).json({ message: "Usuario autentificado", token: token, role: "seller" });
@@ -41,9 +37,6 @@ const authenticateAccount = async (req, res) => {
     if (!verifyU) {
       return res.status(401).json({ message: "Usuario no encontrado" });
     }
-    // if (user.password !== password) {
-    //   return res.status(401).json({ message: "Usuario no encontrado" });
-    // }
 
     const token = generateToken(user, "user");
     return res.status(200).json({ message: "Usuario autentificado", token: token, role: "user" });

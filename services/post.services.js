@@ -74,8 +74,10 @@ class Post {
     try {
       const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
       let currentPage = parseInt(input.page)
-      let pageSize = 10
+      let pageSize = parseInt(input.take) || 10
+
       const where = {};
+      console.log("1")
 
       if (type != "") where.type = type;
       if (onSale != "") where.onSale = JSON.parse(onSale)
@@ -102,8 +104,8 @@ class Post {
           where.garage = parseInt(garageCount);
       }
       where.published = true;
-      if (JSON.parse(pool)) where.pool = JSON.parse(pool);
-      if (JSON.parse(pets)) where.pets = JSON.parse(pets);
+      if (pool != "") where.pool = JSON.parse(pool);
+      if (pets != "") where.pets = JSON.parse(pets);
 
       console.log(where)
 
@@ -124,6 +126,9 @@ class Post {
   async createPost(body) {
     try {
       const { title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, seller, sellerId, datetime } = body;
+
+      if (images.length === 0)
+        published = false
 
       const prisma = new PrismaClient();
       const post = await prisma.post.create({
@@ -158,32 +163,18 @@ class Post {
 
   async updatePost(body) {
     try {
-      const { id, title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, datetime } = body;
-
+      //const { id, title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, datetime } = body;
+      const { id } = body
+      console.log("**************************************************************************")
+      console.log(body)
+      console.log("**************************************************************************")
       const prisma = new PrismaClient();
       const post = await prisma.post.update({
         where: {
           id: id
         },
         data: {
-          title: title,
-          content: content,
-          published: published,
-          price: price,
-          onSale: onSale,
-          ubication: ubication,
-          city: city,
-          neighborhood: neighborhood,
-          frontImage: frontImage,
-          images: images,
-          type: type,
-          rooms: rooms,
-          bathrooms: bathrooms,
-          garage: garage,
-          area: area,
-          pool: pool,
-          pets: pets,
-          datetime: datetime
+          ...body,
         },
       });
       return post;
