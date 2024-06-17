@@ -164,7 +164,7 @@ class Post {
     }
   }
 
-  async deletPost(id) {
+  async deletePost(id) {
     try {
       const prisma = new PrismaClient();
       const post = await prisma.post.delete({
