@@ -163,6 +163,20 @@ class Post {
       throw error;
     }
   }
+
+  async deletPost(id) {
+    try {
+      const prisma = new PrismaClient();
+      const post = await prisma.post.delete({
+        where: {
+          id: id
+        }
+      });
+      return post;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 module.exports = Post;
