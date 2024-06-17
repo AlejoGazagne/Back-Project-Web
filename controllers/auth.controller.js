@@ -79,10 +79,11 @@ const registerAccount = async (req, res) => {
         email: req.body.email,
         phoneNumber: req.body.phoneNumber,
         password: req.body.password,
-        description: req.body.description
+        description: req.body.description,
+        profileImage: req.body.profileImage
       }
 
-      let resultSeller = validateSeller(input)
+      let resultSeller = validateSeller(inputSeller)
       if (!resultSeller.success) return res.status(400).json({ error: JSON.parse(resultSeller.error.message) })
 
       const seller = await sellerService.getSellerByEmail(inputSeller.email);
