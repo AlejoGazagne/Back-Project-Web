@@ -106,8 +106,6 @@ class Post {
       if (pool != undefined && pool != "") where.pool = JSON.parse(pool);
       if (pets != undefined && pets != "") where.pets = JSON.parse(pets);
 
-      if (idSeller != undefined && idSeller != "") where.sellerId = idSeller;
-
       console.log(where)
 
       const prisma = new PrismaClient();
