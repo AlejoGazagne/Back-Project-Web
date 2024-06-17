@@ -17,20 +17,20 @@ class Post {
     }
   }
 
-  async getThreePost() {
-    try {
-      const prisma = new PrismaClient();
-      const posts = await prisma.post.findMany({
-        take: 3,
-        where: {
-          published: true
-        },
-      });
-      return posts;
-    } catch (error) {
-      throw error;
-    }
-  }
+  // async getThreePost() {
+  //   try {
+  //     const prisma = new PrismaClient();
+  //     const posts = await prisma.post.findMany({
+  //       take: 3,
+  //       where: {
+  //         published: true
+  //       },
+  //     });
+  //     return posts;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   async getMyPosts(id) {
     try {
@@ -46,66 +46,67 @@ class Post {
     }
   }
 
-  async getSomePost(currentPage) {
-    try {
-      let pageSize = 10
+  // async getSomePost(currentPage) {
+  //   try {
+  //     let pageSize = 10
 
-      const prisma = new PrismaClient();
+  //     const prisma = new PrismaClient();
 
-      const size = await prisma.post.count()
-      const posts = await prisma.post.findMany({
-        skip: (currentPage - 1) * pageSize,
-        take: pageSize,
-        where: {
-          published: true
-        }
-      });
-      const rsp = {
-        size: size,
-        posts: posts
-      }
-      return rsp;
-    } catch (error) {
-      throw error;
-    }
-  }
+  //     const size = await prisma.post.count()
+  //     const posts = await prisma.post.findMany({
+  //       skip: (currentPage - 1) * pageSize,
+  //       take: pageSize,
+  //       where: {
+  //         published: true
+  //       }
+  //     });
+  //     const rsp = {
+  //       size: size,
+  //       posts: posts
+  //     }
+  //     return rsp;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   async getPosts(input) {
     try {
-      const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
+      const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets, idSeller } = input;
       let currentPage = parseInt(input.page)
       let pageSize = parseInt(input.take) || 10
 
       const where = {};
-      console.log("1")
 
-      if (type != "") where.type = type;
-      if (onSale != "") where.onSale = JSON.parse(onSale)
-      if (priceMin != "") where.price = { ...where.price, gte: parseFloat(priceMin) };
-      if (priceMax != "") where.price = { ...where.price, lte: parseFloat(priceMax) };
-      if (city != '') where.city = city;
-      if (neighborhood != '') where.neighborhood = neighborhood;
-      if (roomCount != "") {
+      if (type != undefined && type != "") where.type = type;
+      if (onSale != undefined && onSale != "") where.onSale = JSON.parse(onSale)
+      if (priceMin != undefined && priceMin != "") where.price = { ...where.price, gte: parseFloat(priceMin) };
+      if (priceMax != undefined && priceMax != "") where.price = { ...where.price, lte: parseFloat(priceMax) };
+      if (city != undefined && city != '') where.city = city;
+      if (neighborhood != undefined && neighborhood != '') where.neighborhood = neighborhood;
+      if (roomCount != undefined && roomCount != "") {
         if (parseInt(roomCount) === 4)
           where.rooms = { gte: parseInt(roomCount) }
         else
           where.rooms = parseInt(roomCount);
       }
-      if (bathroomCount != "") {
+      if (bathroomCount != undefined && bathroomCount != "") {
         if (parseInt(bathroomCount) === 4)
           where.bathrooms = { gte: parseInt(bathroomCount) }
         else
           where.bathrooms = parseInt(bathroomCount);
       }
-      if (garageCount != "") {
+      if (garageCount != undefined && garageCount != "") {
         if (parseInt(garageCount) === 4)
           where.garage = { gte: parseInt(garageCount) }
         else
           where.garage = parseInt(garageCount);
       }
       where.published = true;
-      if (pool != "") where.pool = JSON.parse(pool);
-      if (pets != "") where.pets = JSON.parse(pets);
+      if (pool != undefined && pool != "") where.pool = JSON.parse(pool);
+      if (pets != undefined && pets != "") where.pets = JSON.parse(pets);
+
+      if (idSeller != undefined && idSeller != "") where.sellerId = idSeller;
 
       console.log(where)
 
@@ -125,34 +126,16 @@ class Post {
 
   async createPost(body) {
     try {
-      const { title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, seller, sellerId, datetime } = body;
 
-      if (images.length === 0)
-        published = false
+      if (body.images.length === 0 && body.frontImage === undefined) {
+        body.published = false
+        body.frontImage = ""
+      }
 
       const prisma = new PrismaClient();
       const post = await prisma.post.create({
         data: {
-          title: title,
-          content: content,
-          published: published,
-          price: price,
-          onSale: onSale,
-          ubication: ubication,
-          city: city,
-          neighborhood: neighborhood,
-          frontImage: frontImage,
-          images: images,
-          type: type,
-          rooms: rooms,
-          bathrooms: bathrooms,
-          garage: garage,
-          area: area,
-          pool: pool,
-          pets: pets,
-          seller: seller,
-          sellerId: sellerId,
-          datetime: datetime
+          ...body
         },
       });
       return post;
@@ -165,9 +148,7 @@ class Post {
     try {
       //const { id, title, content, published, price, onSale, ubication, city, neighborhood, frontImage, images, type, rooms, bathrooms, garage, area, pool, pets, datetime } = body;
       const { id } = body
-      console.log("**************************************************************************")
       console.log(body)
-      console.log("**************************************************************************")
       const prisma = new PrismaClient();
       const post = await prisma.post.update({
         where: {

@@ -30,7 +30,7 @@ const create = async (req, res) => {
 
 const delet = async (req, res) => {
   try {
-    req.body.postId = req.param.id; // -----------------------------------------------
+    req.body.postId = req.param.id;
     req.body.userId = req.token.id;
     console.log(req.body);
     const response = await favoriteService.deleteFavorite(req.body);

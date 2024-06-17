@@ -3,21 +3,21 @@ const postService = new PostService();
 const SellerService = require("../services/seller.services");
 const sellerService = new SellerService()
 
-const getSomePost = async (req, res) => {
-  try {
-    let currentPage = parseInt(req.query.page)
+// const getSomePost = async (req, res) => {
+//   try {
+//     let currentPage = parseInt(req.query.page)
 
-    const posts = await postService.getSomePost(currentPage);
-    let response = [];
-    for (let i = 0; i < posts.posts.length; i++) {
-      const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts.posts[i]
-      response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage, ubication })
-    }
-    res.status(200).json({ message: 'Get posts', data: { items: response, size: posts.size } });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-}
+//     const posts = await postService.getSomePost(currentPage);
+//     let response = [];
+//     for (let i = 0; i < posts.posts.length; i++) {
+//       const { id, title, price, frontImage, content, rooms, bathrooms, garage, ubication } = posts.posts[i]
+//       response.push({ id, title, price, frontImage, content, rooms, bathrooms, garage, ubication })
+//     }
+//     res.status(200).json({ message: 'Get posts', data: { items: response, size: posts.size } });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// }
 
 const getPostsFilter = async (req, res) => {
   try {
@@ -49,4 +49,4 @@ const getPostById = async (req, res) => {
   }
 }
 
-module.exports = { getSomePost, getPostsFilter, getPostById }
+module.exports = { getPostsFilter, getPostById }

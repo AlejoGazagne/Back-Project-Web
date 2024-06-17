@@ -5,7 +5,6 @@ const { validatePost, validatePartialPost } = require('../schemas/post.schemas')
 
 const create = async (req, res) => {
   try {
-    //Verificar que esten los valores
     req.body.sellerId = req.token.id;
     const result = validatePost(req.body)
     if (!result.success)
@@ -32,14 +31,14 @@ const update = async (req, res) => {
   }
 }
 
-const get = async (req, res) => {
-  try {
-    const response = await postService.getPosts(req.body);
-    res.status(200).json({ message: 'Get posts', data: response })
-  } catch (error) {
-    res.status(500).send({ message: error.message });
-  }
-}
+// const get = async (req, res) => {
+//   try {
+//     const response = await postService.getPosts(req.body);
+//     res.status(200).json({ message: 'Get posts', data: response })
+//   } catch (error) {
+//     res.status(500).send({ message: error.message });
+//   }
+// }
 
 const delet = async (req, res) => {
   try {
@@ -64,4 +63,4 @@ const getMyPosts = async (req, res) => {
   }
 }
 
-module.exports = { create, update, get, delet, getMyPosts }
+module.exports = { create, update, delet, getMyPosts }
