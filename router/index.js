@@ -4,7 +4,6 @@ const router = express.Router();
 const userRouter = require("./user.router");
 const sellerRouter = require("./seller.router");
 const account = require("./account.router");
-const home = require("./home.router");
 const catalogue = require('./catalogue.router')
 const VerifyToken = require("../middlewares/verifyToken.middleware");
 

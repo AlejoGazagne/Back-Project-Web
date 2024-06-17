@@ -5,6 +5,7 @@ const userService = new UserService();
 const { generateToken } = require("../services/generateToken.services");
 const { hashPassword, verifyPassword } = require('../services/hashPassword.services');
 const { validateUser, validatePartialUser } = require('../schemas/user.schemas')
+const { validateSeller, validatePartialSeller } = require('../schemas/seller.schemas')
 
 const authenticateAccount = async (req, res) => {
   try {
@@ -50,35 +51,47 @@ const authenticateAccount = async (req, res) => {
 const registerAccount = async (req, res) => {
   try {
     const type = req.body.type;
-    let input = {
-      name: req.body.name,
-      email: req.body.email,
-      phoneNumber: req.body.phoneNumber,
-      password: req.body.password
-    }
-
-    let result = validateUser(input)
-    if (!result.success) return res.status(400).json({ error: JSON.parse(result.error.message) })
 
     if (type === 1) {
-      const user = await userService.getUserByEmail(input.email);
+      let inputUser = {
+        name: req.body.name,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        password: req.body.password
+      }
+
+      let result = validateUser(inputUser)
+      if (!result.success) return res.status(400).json({ error: JSON.parse(result.error.message) })
+
+      const user = await userService.getUserByEmail(inputUser.email);
       if (user) {
         return res.status(400).json({ message: "El usuario ya existe" });
       }
 
-      req.body.password = await hashPassword(input.password);
-      const newUser = await userService.createUser(req.body);
+      inputUser.password = await hashPassword(inputUser.password);
+      const newUser = await userService.createUser(inputUser);
       const token = generateToken(newUser, "user");
       return res.status(200).json({ message: "Usuario registrado", token: token, role: "user" });
     }
     if (type === 2) {
-      const seller = await sellerService.getSellerByEmail(input.email);
+      let inputSeller = {
+        name: req.body.name,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        password: req.body.password,
+        description: req.body.description
+      }
+
+      let resultSeller = validateSeller(input)
+      if (!resultSeller.success) return res.status(400).json({ error: JSON.parse(resultSeller.error.message) })
+
+      const seller = await sellerService.getSellerByEmail(inputSeller.email);
       if (seller) {
         return res.status(400).json({ message: "El vendedor ya existe" });
       }
 
-      req.body.password = await hashPassword(input.password);
-      const newSeller = await sellerService.createSeller(req.body);
+      inputSeller.password = await hashPassword(inputSeller.password);
+      const newSeller = await sellerService.createSeller(inputSeller);
       const token = generateToken(newSeller, "seller");
       return res.status(200).json({ message: "Vendedor registrado", token: token, role: "seller" });
     }
