@@ -42,7 +42,7 @@ const update = async (req, res) => {
 
 const delet = async (req, res) => {
   try {
-    const response = await postService.deletePost(req.params.id);
+    const response = await postService.deletePost(parseInt(req.params.id));
     res.status(200).json({ message: 'Post deleted', data: response });
   } catch (error) {
     res.status(500).send({ message: error.message });
