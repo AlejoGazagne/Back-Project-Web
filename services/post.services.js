@@ -17,21 +17,6 @@ class Post {
     }
   }
 
-  // async getThreePost() {
-  //   try {
-  //     const prisma = new PrismaClient();
-  //     const posts = await prisma.post.findMany({
-  //       take: 3,
-  //       where: {
-  //         published: true
-  //       },
-  //     });
-  //     return posts;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
-
   async getMyPosts(id) {
     try {
       const prisma = new PrismaClient();
@@ -46,33 +31,9 @@ class Post {
     }
   }
 
-  // async getSomePost(currentPage) {
-  //   try {
-  //     let pageSize = 10
-
-  //     const prisma = new PrismaClient();
-
-  //     const size = await prisma.post.count()
-  //     const posts = await prisma.post.findMany({
-  //       skip: (currentPage - 1) * pageSize,
-  //       take: pageSize,
-  //       where: {
-  //         published: true
-  //       }
-  //     });
-  //     const rsp = {
-  //       size: size,
-  //       posts: posts
-  //     }
-  //     return rsp;
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // }
-
   async getPosts(input) {
     try {
-      const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets, idSeller } = input;
+      const { type, onSale, priceMin, priceMax, city, neighborhood, roomCount, bathroomCount, garageCount, pool, pets } = input;
       let currentPage = parseInt(input.page)
       let pageSize = parseInt(input.take) || 10
 
@@ -175,6 +136,45 @@ class Post {
       throw error;
     }
   }
+
+  // async getThreePost() {
+  //   try {
+  //     const prisma = new PrismaClient();
+  //     const posts = await prisma.post.findMany({
+  //       take: 3,
+  //       where: {
+  //         published: true
+  //       },
+  //     });
+  //     return posts;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
+
+  // async getSomePost(currentPage) {
+  //   try {
+  //     let pageSize = 10
+
+  //     const prisma = new PrismaClient();
+
+  //     const size = await prisma.post.count()
+  //     const posts = await prisma.post.findMany({
+  //       skip: (currentPage - 1) * pageSize,
+  //       take: pageSize,
+  //       where: {
+  //         published: true
+  //       }
+  //     });
+  //     const rsp = {
+  //       size: size,
+  //       posts: posts
+  //     }
+  //     return rsp;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 }
 
 module.exports = Post;
